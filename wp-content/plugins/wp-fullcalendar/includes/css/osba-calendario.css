@@ -1,0 +1,41 @@
+/* Estilo geral do calendário */
+.fc {
+  background-color: #f0f0f0; /* Cor de fundo do calendário */
+  font-family: Arial, sans-serif; /* Fonte do calendário */
+  border: 1px solid #ccc; /* Borda do calendário */
+  border-radius: 5px; /* Arredondamento das bordas */
+}
+
+/* Estilo dos dias */
+.fc-day {
+  background-color: #fff; /* Cor de fundo dos dias */
+  border: 1px solid #ddd; /* Borda dos dias */
+}
+
+/* Estilo do dia atual */
+.fc-today {
+  background-color: #ffeeba; /* Cor de fundo do dia atual */
+  border: 1px solid #ffc107; /* Borda do dia atual */
+}
+
+/* Estilo dos eventos */
+.fc-event {
+  background-color: #007bff; /* Cor de fundo dos eventos */
+  color: #fff; /* Cor do texto dos eventos */
+  border: 1px solid #0056b3; /* Borda dos eventos */
+  border-radius: 3px; /* Arredondamento das bordas dos eventos */
+}
+
+/* Estilo dos botões */
+.fc-button {
+  background-color: #28a745; /* Cor de fundo dos botões */
+  color: #fff; /* Cor do texto dos botões */
+  border: 1px solid #28a745; /* Borda dos botões */
+}
+
+.fc-button:hover {
+  background-color: #218838; /* Cor de fundo dos botões ao passar o mouse */
+  border-color: #1e7e34; /* Cor da borda dos botões ao passar o mouse */
+}
+
+/* Outros estilos personalizados */

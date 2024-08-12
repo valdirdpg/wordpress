@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+/*
+Theme Name: OSBA_
+Author: Diego Fox
+Description: Site da OSBA
+
+*/
+
+/* Browser Reset */
+
+
+/* Alterações no Calendário  */
+.fc-time{
+  display: none !important;
+}
+tr:first-child > td > .fc-day-grid-event {
+  margin-top: 2px;
+  background-color: #6665FE !important;
+  border-color: #6665FE !important;
+}
+.fc-unthemed td.fc-today {
+  background: #EEF !important;
+}
+
+.search a.card-link{
+  color: #333;
+}
+
+.wpcf7 input[type="url"], .wpcf7 input[type="email"], .wpcf7 input[type="tel"] {
+  direction: ltr;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.cursor-pointer{
+  cursor: pointer;
+}
+
+.modal-gallery .owl-nav{
+  padding-left: 60px;
+  top: 0;
+}
+
+.modal-gallery .owl-carousel .owl-nav [class*="owl-"] {
+  position: relative !important;
+}
+
+.embed-container { 
+  position: relative; 
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  max-width: 100%;
+  height: auto;
+} 
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed { 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
