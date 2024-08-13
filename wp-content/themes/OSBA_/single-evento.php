@@ -2,7 +2,7 @@
 get_header();
 $template_directory_uri = get_template_directory_uri();
 ?>
-<?php while ( have_posts() ) : the_post(); ?>
+<?php while (have_posts()) : the_post(); ?>
     <?php
     $descricao = get_field('descricao');
     $local = get_field('local');
@@ -12,21 +12,21 @@ $template_directory_uri = get_template_directory_uri();
     $ingresso_inteira = get_field('ingresso_inteira');
     $ingresso_meia = get_field('ingresso_meia');
     $link = get_field('link');
-    $unixtimestamp = strtotime( get_field('data') );
+    $unixtimestamp = strtotime(get_field('data'));
     ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/osba-eventos.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
-</head>
-<div id="mainHeader" style="width: 2500px;"></div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/osba-eventos.css">
+        <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
+    </head>
+    <div id="mainHeader" style="width: 2500px;"></div>
     <main id='mainContent'>
         <!-- Imagem de destaque do evento e banner ocupando toda a largura -->
         <div class="event-header">
             <div class="event-header-img">
-                <?php the_post_thumbnail( 'full' ); ?>
+                <?php the_post_thumbnail('full'); ?>
             </div>
         </div>
 
@@ -36,35 +36,34 @@ $template_directory_uri = get_template_directory_uri();
 
                 <!-- Primeira Coluna: Conteúdo do Evento -->
                 <div class="event-content-column">
-                    <div class="ev-grid-item">
-    <div class="ev-item">
-        <div class="ev-item-left">
-            <div class="ev-date">
-                <div class="ev-day-month">
-                    <span class="ev-day"><?php echo date('d', strtotime(get_field('data'))); ?></span>
-                    <span class="ev-month">/<?php echo date('m', strtotime(get_field('data'))); ?></span>
-                </div>
-                <div class="ev-weekday-time">
-                    <span class="ev-weekday"><?php echo date_i18n('D', strtotime(get_field('data'))); ?></span>
-                    <span class="ev-time"><?php echo date('H\hi', strtotime(get_field('data'))); ?></span>
-                </div>
-            </div>
-        </div>
-        <div class="ev-item-right">
-            <h3 class="ev-title"><?php the_title(); ?></h3>
-            <p class="ev-location"><?php echo get_field('local'); ?></p>
-            <p class="ev-classification"><?php echo get_field('classificacao'); ?></p>
-            <p class="ev-info">Sujeito à lotação do espaço</p>
-            <div class="ev-button">
-                <?php if (get_field('tipo') === 'Gratuito') : ?>
-                    <span class="ev-free-btn">GRATUITO</span>
-                <?php else : ?>
-                    <a href="<?php echo get_permalink(); ?>" class="ev-paid-btn">COMPRAR INGRESSO</a>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</div>
+                    <!-- Removendo contêiner extra -->
+                    <div class="ev-grid-item" style="display: flex; height: 147px; align-items: stretch; border: none; border-radius: 0;">
+                        <div class="ev-item-left">
+                            <div class="ev-date">
+                                <div class="ev-day-month">
+                                    <span class="ev-day"><?php echo date('d', strtotime(get_field('data'))); ?></span>
+                                    <span class="ev-month">/<?php echo date('m', strtotime(get_field('data'))); ?></span>
+                                </div>
+                                <div class="ev-weekday-time">
+                                    <div class="ev-weekday-block"><?php echo date_i18n('D', strtotime(get_field('data'))); ?></div>
+                                    <div class="ev-time-block"><?php echo date('H\hi', strtotime(get_field('data'))); ?></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ev-item-right">
+                            <h3 class="ev-title"><?php the_title(); ?></h3>
+                            <p class="ev-location"><?php echo get_field('local'); ?></p>
+                            <p class="ev-classification"><?php echo get_field('classificacao'); ?></p>
+                            <p class="ev-info">Sujeito à lotação do espaço</p>
+                            <div class="ev-button">
+                                <?php if (get_field('tipo') === 'Gratuito') : ?>
+                                    <span class="ev-free-btn">GRATUITO</span>
+                                <?php else : ?>
+                                    <a href="<?php echo get_permalink(); ?>" class="ev-paid-btn">COMPRAR INGRESSO</a>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Conteúdo detalhado do evento -->
                     <div class="page-content">
                         <article id="post-<?php the_ID(); ?>" class="article event-article">
@@ -94,15 +93,15 @@ $template_directory_uri = get_template_directory_uri();
                             </div>
                             <table id="calendar-table">
                                 <thead>
-                                    <tr>
-                                        <th>D</th>
-                                        <th>S</th>
-                                        <th>T</th>
-                                        <th>Q</th>
-                                        <th>Q</th>
-                                        <th>S</th>
-                                        <th>S</th>
-                                    </tr>
+                                <tr>
+                                    <th>D</th>
+                                    <th>S</th>
+                                    <th>T</th>
+                                    <th>Q</th>
+                                    <th>Q</th>
+                                    <th>S</th>
+                                    <th>S</th>
+                                </tr>
                                 </thead>
                                 <tbody id="calendar-body"></tbody>
                             </table>
@@ -119,134 +118,134 @@ $template_directory_uri = get_template_directory_uri();
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     jQuery(document).ready(function($) {
-    let currentMonth = new Date().getMonth();
-    let currentYear = new Date().getFullYear();
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
 
-    function loadEventsAndRenderCalendar(month, year) {
-        $.ajax({
-            url: '<?php echo admin_url('admin-ajax.php'); ?>',
-            type: 'POST',
-            data: {
-                action: 'load_events_for_month',
-                month: month + 1, // Meses no JS são indexados a partir de 0
-                year: year
-            },
-            success: function(response) {
-                const data = JSON.parse(response);
-                renderCalendar(data.events, month, year);
-            },
-            error: function(xhr, status, error) {
-                console.error("Erro ao carregar eventos: ", status, error);
-            }
-        });
-    }
-
-    function renderCalendar(events, month, year) {
-        const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-
-        let firstDay = new Date(year, month, 1).getDay();
-        let daysInMonth = 32 - new Date(year, month, 32).getDate();
-
-        let calendarBody = $("#calendar-body");
-        calendarBody.empty();
-
-        $("#calendar-month-year").text(`${monthNames[month]} ${year}`);
-
-        let date = 1;
-        for (let i = 0; i < 6; i++) {
-            let row = $("<tr></tr>");
-
-            for (let j = 0; j < 7; j++) {
-                if (i === 0 && j < firstDay) {
-                    row.append($("<td></td>"));
-                } else if (date > daysInMonth) {
-                    break;
-                } else {
-                    let cell = $("<td></td>").attr("data-date", `${year}-${(month + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`);
-                    let cellText = $("<span></span>").text(date).addClass('event-day');
-
-                    let event = events.find(e => {
-                        let eventDate = new Date(e.date);
-                        return eventDate.getDate() === date && eventDate.getMonth() === month && eventDate.getFullYear() === year;
-                    });
-                    if (event) {
-                        const eventClass = event.tipo === 'Gratuito' ? 'event-day-free' : 'event-day-paid';
-                        cellText.addClass(eventClass);
-                    }
-
-                    cell.append(cellText);
-                    row.append(cell);
-                    date++;
+        function loadEventsAndRenderCalendar(month, year) {
+            $.ajax({
+                url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                type: 'POST',
+                data: {
+                    action: 'load_events_for_month',
+                    month: month + 1, // Meses no JS são indexados a partir de 0
+                    year: year
+                },
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    renderCalendar(data.events, month, year);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Erro ao carregar eventos: ", status, error);
                 }
-            }
-
-            calendarBody.append(row);
+            });
         }
 
-        renderLegend(events, month, year);
-    }
+        function renderCalendar(events, month, year) {
+            const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
 
-    function renderLegend(events, month, year) {
-        let legend = $("#event-legend");
-        legend.empty();
+            let firstDay = new Date(year, month, 1).getDay();
+            let daysInMonth = 32 - new Date(year, month, 32).getDate();
 
-        let monthEvents = events.filter(event => {
-            let eventDate = new Date(event.date);
-            return eventDate.getMonth() === month && eventDate.getFullYear() === year;
-        });
+            let calendarBody = $("#calendar-body");
+            calendarBody.empty();
 
-        if (monthEvents.length > 0) {
-            monthEvents.forEach(event => {
-                let color = event.tipo === 'Gratuito' ? '#44996c' : '#0A246A';
-                legend.append(`
+            $("#calendar-month-year").text(`${monthNames[month]} ${year}`);
+
+            let date = 1;
+            for (let i = 0; i < 6; i++) {
+                let row = $("<tr></tr>");
+
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDay) {
+                        row.append($("<td></td>"));
+                    } else if (date > daysInMonth) {
+                        break;
+                    } else {
+                        let cell = $("<td></td>").attr("data-date", `${year}-${(month + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`);
+                        let cellText = $("<span></span>").text(date).addClass('event-day');
+
+                        let event = events.find(e => {
+                            let eventDate = new Date(e.date);
+                            return eventDate.getDate() === date && eventDate.getMonth() === month && eventDate.getFullYear() === year;
+                        });
+                        if (event) {
+                            const eventClass = event.tipo === 'Gratuito' ? 'event-day-free' : 'event-day-paid';
+                            cellText.addClass(eventClass);
+                        }
+
+                        cell.append(cellText);
+                        row.append(cell);
+                        date++;
+                    }
+                }
+
+                calendarBody.append(row);
+            }
+
+            renderLegend(events, month, year);
+        }
+
+        function renderLegend(events, month, year) {
+            let legend = $("#event-legend");
+            legend.empty();
+
+            let monthEvents = events.filter(event => {
+                let eventDate = new Date(event.date);
+                return eventDate.getMonth() === month && eventDate.getFullYear() === year;
+            });
+
+            if (monthEvents.length > 0) {
+                monthEvents.forEach(event => {
+                    let color = event.tipo === 'Gratuito' ? '#44996c' : '#0A246A';
+                    legend.append(`
                     <div class="ev-legend-item">
                         <div class="color-box" style="background-color: ${color}; flex-shrink: 0;"></div>
                         <span>${event.grupo} - ${event.title}</span>
                     </div>
                 `);
-            });
-        } else {
-            legend.append('<p>Nenhum evento encontrado para este mês.</p>');
+                });
+            } else {
+                legend.append('<p>Nenhum evento encontrado para este mês.</p>');
+            }
         }
-    }
 
-    // Navegação entre meses
-    $("#ev-prev-month").on("click", function() {
-        if (currentMonth === 0) {
-            currentYear--;
-            currentMonth = 11;
-        } else {
-            currentMonth--;
-        }
-        loadEventsAndRenderCalendar(currentMonth, currentYear);
-    });
+        // Navegação entre meses
+        $("#ev-prev-month").on("click", function() {
+            if (currentMonth === 0) {
+                currentYear--;
+                currentMonth = 11;
+            } else {
+                currentMonth--;
+            }
+            loadEventsAndRenderCalendar(currentMonth, currentYear);
+        });
 
-    $("#ev-next-month").on("click", function() {
-        if (currentMonth === 11) {
-            currentYear++;
-            currentMonth = 0;
-        } else {
-            currentMonth++;
-        }
-        loadEventsAndRenderCalendar(currentMonth, currentYear);
-    });
+        $("#ev-next-month").on("click", function() {
+            if (currentMonth === 11) {
+                currentYear++;
+                currentMonth = 0;
+            } else {
+                currentMonth++;
+            }
+            loadEventsAndRenderCalendar(currentMonth, currentYear);
+        });
 
-    // Carregar eventos iniciais e renderizar o calendário
-    $.ajax({
-        url: '<?php echo admin_url('admin-ajax.php'); ?>',
-        type: 'POST',
-        data: {
-            action: 'load_initial_data'
-        },
-        success: function(response) {
-            const data = JSON.parse(response);
-            renderCalendar(data.events, currentMonth, currentYear);
-        },
-        error: function(xhr, status, error) {
-            console.error("Erro ao carregar dados iniciais: ", status, error);
-        }
+        // Carregar eventos iniciais e renderizar o calendário
+        $.ajax({
+            url: '<?php echo admin_url('admin-ajax.php'); ?>',
+            type: 'POST',
+            data: {
+                action: 'load_initial_data'
+            },
+            success: function(response) {
+                const data = JSON.parse(response);
+                renderCalendar(data.events, currentMonth, currentYear);
+            },
+            error: function(xhr, status, error) {
+                console.error("Erro ao carregar dados iniciais: ", status, error);
+            }
+        });
     });
-});
 
 </script>
 
@@ -271,6 +270,7 @@ $template_directory_uri = get_template_directory_uri();
         width: 100%;
         overflow-x: hidden; /* Isso ajuda a evitar qualquer rolagem horizontal indesejada */
     }
+
     #ev-prev-month, #ev-next-month {
         cursor: pointer;
         font-size: 1.2em;
@@ -429,7 +429,7 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     .event-day-free {
-        background-color: #44996c;
+        background-color: #5FB085;
         color: #fff;
     }
 
@@ -457,117 +457,117 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     /* Estilo do banner de detalhamento do evento */
-    /* Estilo do banner de detalhamento do evento */
-.ev-item {
-    display: flex;
-    background-color: #f7f5ee; /* Cor de fundo creme */
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none; /* Remove qualquer borda */
-    height: 120px; /* Altura fixa para garantir alinhamento */
-}
+    .ev-grid-item {
+        display: flex;
+        align-items: stretch; /* Mantém ev-item-left e ev-item-right na mesma altura */
+        width: 100%; /* Garante que o grid ocupe toda a largura disponível */
+        border: none; /* Remove qualquer borda extra */
+    }
 
-.ev-item-left {
-    display: flex;
-    flex-direction: column;
-    background-color: #68a08d; /* Cor do primeiro tom de verde */
-    color: white;
-    text-align: center;
-    width: 120px; /* Largura fixa para garantir consistência com a altura */
-}
+    .ev-item-left {
+        display: flex;
+        flex-direction: column;
+        background-color: #5FB085; /* Cor do primeiro tom de verde */
+        color: white;
+        text-align: center;
+        width: 169px; /* Largura fixa conforme especificado */
+        height: 147px; /* Altura fixa conforme especificado */
+        border-radius: 0; /* Remove o arredondamento dos cantos */
+    }
 
-.ev-item-left .ev-date {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Espaça uniformemente os elementos */
-    height: 100%;
-}
+    .ev-item-left .ev-date {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Mantém o topo preenchido */
+        height: 100%;
+    }
 
-.ev-day-month {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    background-color: #83c9b1; /* Segundo tom de verde */
-    padding: 10px 0;
-}
+    .ev-day-month {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #83c9b1; /* Segundo tom de verde */
+        height: 55%; /* Preenche a parte superior */
+    }
 
-.ev-weekday-time {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    background-color: #44996c; /* Terceiro tom de verde */
-    padding: 10px 0;
-}
+    .ev-weekday-time {
+        display: flex;
+        height: 45%; /* Preenche a parte inferior */
+    }
 
-.ev-day {
-    font-size: 24px;
-    font-weight: bold;
-}
+    .ev-weekday-block {
+        background-color: #65C692; /* Primeiro tom de verde no bloco inferior */
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+    }
 
-.ev-month {
-    font-size: 18px;
-    margin-left: 5px;
-}
+    .ev-time-block {
+        background-color: #44996C; /* Segundo tom de verde no bloco inferior */
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+    }
 
-.ev-weekday, .ev-time {
-    display: block;
-    font-size: 16px;
-}
+    .ev-item-right {
+        display: flex;
+        flex-grow: 1;
+        padding: 10px 20px;
+        background-color: #FCF6E8; /* Cor de fundo creme */
+        height: 147px; /* Altura fixa conforme especificado */
+        justify-content: space-between; /* Alinha o texto à esquerda e o botão à direita */
+        align-items: center; /* Alinha verticalmente os itens */
+        flex-direction: row; /* Alinha os itens na horizontal */
+        border-radius: 0; /* Remove o arredondamento dos cantos */
+    }
 
-.ev-item-right {
-    flex-grow: 1;
-    padding: 10px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+    .ev-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
-.ev-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
+    .ev-location {
+        font-size: 16px;
+        font-weight: bold;
+        color: #2e2e2e;
+        margin-bottom: 5px;
+    }
 
-.ev-location {
-    font-size: 16px;
-    font-weight: bold;
-    color: #2e2e2e;
-    margin-bottom: 5px;
-}
+    .ev-classification, .ev-info {
+        font-size: 14px;
+        color: #5c5c5c;
+        margin-bottom: 5px;
+    }
 
-.ev-classification, .ev-info {
-    font-size: 14px;
-    color: #5c5c5c;
-    margin-bottom: 5px;
-}
+    .ev-button {
+        text-align: right;
+    }
 
-.ev-button {
-    text-align: right;
-    margin-top: auto;
-}
+    .ev-free-btn, .ev-paid-btn {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: #68a08d;
+        color: white;
+        text-decoration: none;
+    }
 
-.ev-free-btn, .ev-paid-btn {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-weight: bold;
-    text-transform: uppercase;
-    background-color: #68a08d;
-    color: white;
-    text-decoration: none;
-}
+    .ev-free-btn {
+        background-color: #68a08d;
+        color: white;
+    }
 
-.ev-free-btn {
-    background-color: #68a08d;
-    color: white;
-}
-
-.ev-paid-btn {
-    background-color: #0a246a;
-    color: white;
-    text-decoration: none;
-}
+    .ev-paid-btn {
+        background-color: #0a246a;
+        color: white;
+        text-decoration: none;
+    }
 
 </style>
