@@ -36,25 +36,28 @@ $template_directory_uri = get_template_directory_uri();
 
                 <!-- Primeira Coluna: Conteúdo do Evento -->
                 <div class="event-content-column">
-                    <!-- Removendo contêiner extra -->
-                    <div class="ev-grid-item" style="display: flex; height: 147px; align-items: stretch; border: none; border-radius: 0;">
+
+                    <div class="ev-grid-item" >
                         <div class="ev-item-left">
                             <div class="ev-date">
-                                <div class="ev-day-month">
-                                    <span class="ev-day"><?php echo date('d', strtotime(get_field('data'))); ?></span>
-                                    <span class="ev-month">/<?php echo date('m', strtotime(get_field('data'))); ?></span>
+                                <div class="ev-day-month<?php echo (get_field('tipo') === 'Pago') ? '-paid' : ''; ?>">
+                                    <span class="ev-day<?php echo (get_field('tipo') === 'Pago') ? '-paid' : ''; ?>"><?php echo date('d', strtotime(get_field('data'))); ?></span>
+                                    <span class="ev-month<?php echo (get_field('tipo') === 'Pago') ? '-paid' : ''; ?>">/<?php echo date('m', strtotime(get_field('data'))); ?></span>
                                 </div>
-                                <div class="ev-weekday-time">
-                                    <div class="ev-weekday-block"><?php echo date_i18n('D', strtotime(get_field('data'))); ?></div>
-                                    <div class="ev-time-block"><?php echo date('H\hi', strtotime(get_field('data'))); ?></div>
+                                <div class="ev-weekday-time<?php echo (get_field('tipo') === 'Pago') ? '-paid' : ''; ?>">
+                                    <div class="ev-weekday-block<?php echo (get_field('tipo') === 'Pago') ? '-paid' : ''; ?>"><?php echo date_i18n('D', strtotime(get_field('data'))); ?></div>
+                                    <div class="ev-time-block<?php echo (get_field('tipo') === 'Pago') ? '-paid' : ''; ?>"><?php echo date('H', strtotime(get_field('data'))); ?>h</div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="ev-item-right">
-                            <h3 class="ev-title"><?php the_title(); ?></h3>
-                            <p class="ev-location"><?php echo get_field('local'); ?></p>
-                            <p class="ev-classification"><?php echo get_field('classificacao'); ?></p>
-                            <p class="ev-info">Sujeito à lotação do espaço</p>
+                            <div class="ev-text-container">
+                                <h3 class="ev-title"><?php the_title(); ?></h3>
+                                <p class="ev-location"><?php echo get_field('local'); ?></p>
+                                <p class="ev-classification"><?php echo get_field('classificacao'); ?></p>
+                                <p class="ev-info">Sujeito à lotação do espaço</p>
+                            </div>
                             <div class="ev-button">
                                 <?php if (get_field('tipo') === 'Gratuito') : ?>
                                     <span class="ev-free-btn">GRATUITO</span>
@@ -361,6 +364,10 @@ $template_directory_uri = get_template_directory_uri();
 
     .event-content-column {
         width: 100%;
+        padding-top: 50px;
+    }
+    .event-title{
+        padding-top: 60px;
     }
 
     .event-calendar-column {
@@ -462,6 +469,9 @@ $template_directory_uri = get_template_directory_uri();
         align-items: stretch; /* Mantém ev-item-left e ev-item-right na mesma altura */
         width: 100%; /* Garante que o grid ocupe toda a largura disponível */
         border: none; /* Remove qualquer borda extra */
+        height: 147px;
+        border-radius: 0;
+        /*padding-top: 30px;*/
     }
 
     .ev-item-left {
@@ -482,17 +492,53 @@ $template_directory_uri = get_template_directory_uri();
         height: 100%;
     }
 
-    .ev-day-month {
+    .ev-day-month-paid {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #83c9b1; /* Segundo tom de verde */
-        height: 55%; /* Preenche a parte superior */
+        background-color: #BE7229; /* Segundo tom de verde */
+        height: 70%; /* Preenche a parte superior */
+        font-size: 48px;
+        font-family: "Nocturno Display Bold";
+    }
+    .ev-weekday-block-paid {
+        background-color: #DF8835; /* Primeiro tom de verde no bloco inferior */
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-family: "Nocturno Display Bold";
+    }
+
+    .ev-time-block-paid {
+        background-color: #AE5907; /* Segundo tom de verde no bloco inferior */
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-family: "Nocturno Display Bold";
+    }
+
+    .ev-weekday-time-paid {
+        display: flex;
+        height: 30%; /* Preenche a parte inferior */
     }
 
     .ev-weekday-time {
         display: flex;
-        height: 45%; /* Preenche a parte inferior */
+        height: 30%; /* Preenche a parte inferior */
+    }
+
+    .ev-day-month {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #5FB085; /* Segundo tom de verde */
+        height: 70%; /* Preenche a parte superior */
+        font-size: 48px;
+        font-family: "Nocturno Display Bold";
     }
 
     .ev-weekday-block {
@@ -501,7 +547,8 @@ $template_directory_uri = get_template_directory_uri();
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 16px;
+        font-size: 30px;
+        font-family: "Nocturno Display Bold";
     }
 
     .ev-time-block {
@@ -510,64 +557,68 @@ $template_directory_uri = get_template_directory_uri();
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 16px;
+        font-size: 30px;
+        font-family: "Nocturno Display Bold";
     }
 
     .ev-item-right {
         display: flex;
-        flex-grow: 1;
+        justify-content: space-between; /* Espaça o conteúdo horizontalmente */
+        align-items: center; /* Alinha o texto e o botão ao centro verticalmente */
         padding: 10px 20px;
         background-color: #FCF6E8; /* Cor de fundo creme */
         height: 147px; /* Altura fixa conforme especificado */
-        justify-content: space-between; /* Alinha o texto à esquerda e o botão à direita */
-        align-items: center; /* Alinha verticalmente os itens */
-        flex-direction: row; /* Alinha os itens na horizontal */
         border-radius: 0; /* Remove o arredondamento dos cantos */
+        flex-grow: 1; /* Garante que o contêiner ocupe todo o espaço disponível */
     }
 
-    .ev-title {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 5px;
+
+    .ev-text-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 60%; /* Define um limite máximo de largura */
+        white-space: normal;
+        justify-content: center;
     }
 
-    .ev-location {
-        font-size: 16px;
-        font-weight: bold;
-        color: #2e2e2e;
-        margin-bottom: 5px;
-    }
-
-    .ev-classification, .ev-info {
-        font-size: 14px;
-        color: #5c5c5c;
-        margin-bottom: 5px;
+    .ev-title, .ev-location, .ev-classification, .ev-info {
+        margin: 0;
+        font-size: 14px; /* Aumenta o tamanho da fonte para melhorar a legibilidade */
+        line-height: 1.4; /* Ajusta o espaçamento entre as linhas */
+        white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+        overflow: hidden; /* Esconde o excesso de texto */
+        text-overflow: ellipsis; /* Adiciona "..." ao final do texto se ele for muito longo */
     }
 
     .ev-button {
-        text-align: right;
+        flex-shrink: 0; /* Impede que o botão seja redimensionado */
+        margin-left: 10px; /* Adiciona espaço entre o texto e o botão */
     }
 
     .ev-free-btn, .ev-paid-btn {
         display: inline-block;
         padding: 5px 10px;
         border-radius: 20px;
-        font-weight: bold;
+        font-weight: normal;
         text-transform: uppercase;
         background-color: #68a08d;
         color: white;
         text-decoration: none;
+        font-family: Raleway, sans-serif;
+        width: 170px;
+        text-align: center;
     }
 
     .ev-free-btn {
-        background-color: #68a08d;
+        background-color: #4D9C72;
         color: white;
+        font-size: 16px;
     }
 
     .ev-paid-btn {
         background-color: #0a246a;
         color: white;
         text-decoration: none;
+        font-size: 14px;
     }
-
 </style>
