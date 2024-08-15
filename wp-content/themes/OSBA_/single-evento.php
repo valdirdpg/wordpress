@@ -18,15 +18,19 @@ $template_directory_uri = get_template_directory_uri();
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/osba-eventos.css">
         <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
     </head>
-    <div id="mainHeader" style="width: 2500px;"></div>
+    <div id="mainHeader" style="width: 1940px;"></div>
     <main id='mainContent'>
         <!-- Imagem de destaque do evento e banner ocupando toda a largura -->
         <div class="event-header">
             <div class="event-header-img">
                 <?php the_post_thumbnail('full'); ?>
+                <!-- Texto "Eventos" sobre a imagem -->
+                <div class="event-title-overlay">Eventos</div>
             </div>
         </div>
 
@@ -37,7 +41,7 @@ $template_directory_uri = get_template_directory_uri();
                 <!-- Primeira Coluna: Conteúdo do Evento -->
                 <div class="event-content-column">
 
-                    <div class="ev-grid-item" >
+                    <div class="ev-grid-item">
                         <div class="ev-item-left">
                             <div class="ev-date">
                                 <div class="ev-day-month<?php echo (get_field('tipo') === 'Pago') ? '-paid' : ''; ?>">
@@ -53,17 +57,13 @@ $template_directory_uri = get_template_directory_uri();
 
                         <div class="ev-item-right">
                             <div class="ev-text-container">
-                                <h3 class="ev-title"><?php the_title(); ?></h3>
-                                <p class="ev-location"><?php echo get_field('local'); ?></p>
-                                <p class="ev-classification"><?php echo get_field('classificacao'); ?></p>
-                                <p class="ev-info">Sujeito à lotação do espaço</p>
+                                <h3 class="ev-title"><?php echo get_field('local'); ?></h3>
+                                <p class="ev-classification">Classificação: <?php echo get_field('classificacao'); ?></p>
+                                <p class="ev-location"><?php echo get_field('lotacao'); ?></p>
                             </div>
-                            <div class="ev-button">
-                                <?php if (get_field('tipo') === 'Gratuito') : ?>
-                                    <span class="ev-free-btn">GRATUITO</span>
-                                <?php else : ?>
-                                    <a href="<?php echo get_permalink(); ?>" class="ev-paid-btn">COMPRAR INGRESSO</a>
-                                <?php endif; ?>
+                            <div class="ev-price-button-container">
+                                <p class="ev-preco-ingresso"><?php echo get_field('ingresso_inteira'); ?></p>
+                                <a href="<?php echo get_permalink(); ?>" class="ev-paid-btn">COMPRAR INGRESSO</a>
                             </div>
                         </div>
                     </div>
@@ -88,15 +88,19 @@ $template_directory_uri = get_template_directory_uri();
                     <div class="ev-calendar">
                         <div id="calendar">
                             <div id="calendar-header">
-                                <span id="calendar-month-year"></span>
+                                <span id="calendar-month-year-container">
+                                    <span id="calendar-month"></span>
+                                    <span id="calendar-year"></span>
+                                </span>
                                 <div id="calendar-navigation">
                                     <span id="ev-prev-month" style="pointer-events: auto;">&lt;</span>
                                     <span id="ev-next-month" style="pointer-events: auto;">&gt;</span>
                                 </div>
                             </div>
+
                             <table id="calendar-table">
                                 <thead>
-                                <tr>
+                                <tr class="ev-sun-mon-semana">
                                     <th>D</th>
                                     <th>S</th>
                                     <th>T</th>
@@ -152,7 +156,8 @@ $template_directory_uri = get_template_directory_uri();
             let calendarBody = $("#calendar-body");
             calendarBody.empty();
 
-            $("#calendar-month-year").text(`${monthNames[month]} ${year}`);
+            $("#calendar-month").text(monthNames[month]); // Atualiza o mês
+            $("#calendar-year").text(year); // Atualiza o ano
 
             let date = 1;
             for (let i = 0; i < 6; i++) {
@@ -199,18 +204,23 @@ $template_directory_uri = get_template_directory_uri();
 
             if (monthEvents.length > 0) {
                 monthEvents.forEach(event => {
-                    let color = event.tipo === 'Gratuito' ? '#44996c' : '#0A246A';
+                    console.log(event); // Verifique o que está dentro do objeto 'event'
+
+                    let titleText = (typeof event.title === 'object') ? JSON.stringify(event.title) : event.title;
+
+                    let color = event.tipo === 'Gratuito' ? '#44996c' : '#BE7229';
                     legend.append(`
-                    <div class="ev-legend-item">
-                        <div class="color-box" style="background-color: ${color}; flex-shrink: 0;"></div>
-                        <span>${event.grupo} - ${event.title}</span>
-                    </div>
-                `);
+            <div class="ev-legend-item">
+                <div class="color-box" style="background-color: ${color}; flex-shrink: 0;"></div>
+                <span>${titleText ? titleText : ''}</span>
+            </div>
+            `);
                 });
             } else {
                 legend.append('<p>Nenhum evento encontrado para este mês.</p>');
             }
         }
+
 
         // Navegação entre meses
         $("#ev-prev-month").on("click", function() {
@@ -264,9 +274,14 @@ $template_directory_uri = get_template_directory_uri();
     .item {
         padding: 20px;
     }
+    @font-face {
+        font-family: 'Raleway';
+        font-weight: normal;
+        font-style: normal;
+    }
 
     body, html {
-        font-family: Arial, sans-serif;
+        font-family: 'Raleway', Arial, sans-serif;
         background-color: #f9f9f9;
         margin: 0;
         padding: 0;
@@ -281,22 +296,39 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     .event-header {
-        width: 100vw; /* Ocupa 100% da largura da viewport */
-        margin-left: calc(-50vw + 50%);
-        position: relative;
+        display: flex;
+        justify-content: center; /* Centraliza horizontalmente */
+        align-items: center; /* Centraliza verticalmente */
+        height: 50vh; /* Garante que o container tenha altura da tela */
     }
 
     .event-header-img {
-        width: 100%;
-        height: 700px; /* Altura fixa */
+        width: 75%;
+        height: 50vh; /* Altura de 50% da altura da viewport */
         overflow: hidden;
+        position: relative;
     }
 
     .event-header-img img {
-        width: 100%;
-        height: 100%;
+        width: 100%; /* Ajusta a largura da imagem para caber no container */
+        height: 100%; /* Mantém a altura especificada */
         object-fit: cover;
         object-position: center;
+    }
+
+    .event-title-overlay {
+        position: absolute;
+        top: 200px;
+        left: 135px;
+        font-family: 'Nocturno Display Pro';
+        font-weight: bold;
+        font-size: 32px;
+        color: white;
+        z-index: 10;
+    }
+
+    .event-description {
+        font-size: 16px;
     }
 
     .ev-banner {
@@ -356,18 +388,41 @@ $template_directory_uri = get_template_directory_uri();
         display: grid;
         grid-template-columns: 1fr 0.4fr;
         gap: 20px;
-        max-width: 1140px;
-        margin: 0 auto;
-        margin-top: -200px;
+        width: 80%; /* Largura percentual para ser responsiva */
+        max-width: 1140px; /* Largura fixa máxima */
+        margin: 0 auto; /* Centraliza o container horizontalmente */
+        margin-top: -150px;
         min-height: 600px; /* Define uma altura mínima para o container */
     }
+
+    @media (max-width: 1024px) {
+        .event-container {
+            grid-template-columns: 1fr; /* Coloca as colunas em uma única coluna em telas menores */
+            width: 90%; /* Aumenta a largura para preencher mais a tela */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .event-container {
+            width: 100%; /* Preenche completamente a tela em dispositivos móveis */
+            margin-top: 20px; /* Remove a margem negativa superior para um layout melhor em telas pequenas */
+            gap: 10px; /* Reduz o espaçamento entre os elementos */
+        }
+    }
+
 
     .event-content-column {
         width: 100%;
         padding-top: 50px;
     }
+
     .event-title{
         padding-top: 60px;
+        padding-bottom: 10px;
+        font-family: "Nocturno Display Bold";
+        font-size: 32px;
+        font-weight: bold;
+        text-transform: uppercase;
     }
 
     .event-calendar-column {
@@ -379,6 +434,7 @@ $template_directory_uri = get_template_directory_uri();
         height: 100%; /* Faz o calendário e a legenda ocuparem a altura completa */
         min-height: 600px; /* Define uma altura mínima para o calendário */
         max-height: 700px;
+        width: 372px;
     }
 
     .ev-calendar {
@@ -400,6 +456,24 @@ $template_directory_uri = get_template_directory_uri();
         justify-content: space-between;
         align-items: center;
         margin-bottom: 15px;
+        font-weight: bold;
+        /*font-size: 22px;*/
+    }
+    #calendar-month {
+        font-size: 22px;
+        text-transform: uppercase;
+    }
+
+    #calendar-year {
+        font-size: 20px;
+    }
+
+    #calendar-month-year-container {
+        white-space: nowrap; /* Garante que o mês e o ano fiquem na mesma linha */
+    }
+
+    #calendar-month::after {
+        content: " "; /* Adiciona um espaço após o mês */
     }
 
     #calendar-navigation span {
@@ -425,6 +499,20 @@ $template_directory_uri = get_template_directory_uri();
         font-weight: bold;
     }
 
+    th {
+        font-family: Raleway;
+        font-weight: lighter;
+        font-size: 12px;
+        color: #696969;
+    }
+
+    #calendar-body {
+        font-family: Raleway;
+        color: #696969;
+        font-weight: lighter;
+        font-size: 16px;
+    }
+
     .event-day-free, .event-day-paid {
         padding: 5px;
         display: flex;
@@ -441,13 +529,16 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     .event-day-paid {
-        background-color: #0a246a;
+        background-color: #BE7229;
         color: #fff;
     }
 
     .ev-legend {
         margin-top: 20px;
         flex-grow: 0; /* Impede que a legenda cresça além do necessário */
+        font-family: Raleway;
+        font-size: 14px;
+        font-weight: 400;
     }
 
     .ev-legend-item {
@@ -471,7 +562,6 @@ $template_directory_uri = get_template_directory_uri();
         border: none; /* Remove qualquer borda extra */
         height: 147px;
         border-radius: 0;
-        /*padding-top: 30px;*/
     }
 
     .ev-item-left {
@@ -562,32 +652,57 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     .ev-item-right {
-        display: flex;
-        justify-content: space-between; /* Espaça o conteúdo horizontalmente */
-        align-items: center; /* Alinha o texto e o botão ao centro verticalmente */
+        width: 601px; /* Defina uma largura fixa de acordo com suas necessidades */
         padding: 10px 20px;
-        background-color: #FCF6E8; /* Cor de fundo creme */
-        height: 147px; /* Altura fixa conforme especificado */
-        border-radius: 0; /* Remove o arredondamento dos cantos */
-        flex-grow: 1; /* Garante que o contêiner ocupe todo o espaço disponível */
+        background-color: #FCF6E8; /* Cor de fundo */
+        height: 147px; /* Altura fixa */
+        border-radius: 0;
+        flex-grow: 0; /* Impede que o contêiner cresça */
+        overflow: hidden; /* Esconde qualquer conteúdo que exceda a largura */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-
     .ev-text-container {
+        flex: 1;
+        white-space: normal; /* Permite a quebra de linha */
+        word-wrap: break-word; /* Quebra palavras longas */
+        overflow: hidden; /* Esconde o conteúdo que exceder */
+    }
+
+    .ev-price-button-container {
         display: flex;
         flex-direction: column;
-        max-width: 60%; /* Define um limite máximo de largura */
-        white-space: normal;
-        justify-content: center;
+        align-items: flex-end;
+        flex-shrink: 0;
+    }
+
+    .event-article {
+        line-height: 1.8;
+        font-family: Raleway;
+        font-weight: Normal;
+        font-size: 16px;
     }
 
     .ev-title, .ev-location, .ev-classification, .ev-info {
         margin: 0;
-        font-size: 14px; /* Aumenta o tamanho da fonte para melhorar a legibilidade */
+        font-size: 20px; /* Aumenta o tamanho da fonte para melhorar a legibilidade */
         line-height: 1.4; /* Ajusta o espaçamento entre as linhas */
         white-space: nowrap; /* Impede que o texto quebre em várias linhas */
         overflow: hidden; /* Esconde o excesso de texto */
         text-overflow: ellipsis; /* Adiciona "..." ao final do texto se ele for muito longo */
+        font-family: Raleway;
+    }
+
+    .ev-title {
+        font-weight: 900;
+    }
+
+    .ev-preco-ingresso {
+        font-family: Raleway;
+        font-size: 20px;
+        font-weight: 900;
     }
 
     .ev-button {
@@ -604,7 +719,7 @@ $template_directory_uri = get_template_directory_uri();
         background-color: #68a08d;
         color: white;
         text-decoration: none;
-        font-family: Raleway, sans-serif;
+        font-family: Raleway;
         width: 170px;
         text-align: center;
     }
@@ -621,4 +736,26 @@ $template_directory_uri = get_template_directory_uri();
         text-decoration: none;
         font-size: 14px;
     }
+
+    .ev-todos-os-eventos {
+        display: flex;
+        justify-content: flex-start; /* Alinha o botão à esquerda */
+        align-items: center; /* Alinha verticalmente ao centro */
+        margin-top: 20px; /* Adiciona um espaço acima do botão */
+    }
+
+    .ev-btn-eventos {
+        background-color: #ECECEC;
+        font-size: 14px;
+        font-family: Raleway;
+        font-weight: normal;
+        width: 222px;
+        height: 29px;
+        text-align: center;
+        box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+        margin-left: 0; /* Garante que o botão fique alinhado à esquerda */
+        margin-top: -60px;
+        margin-bottom: 40px;
+    }
+
 </style>
