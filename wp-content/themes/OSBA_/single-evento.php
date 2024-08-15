@@ -19,9 +19,10 @@ $template_directory_uri = get_template_directory_uri();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/osba-eventos.css">
-        <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
+<!--        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">-->
+<!--        <link rel="stylesheet" href="--><?php //echo get_template_directory_uri(); ?><!--/css/osba-eventos.css">-->
+<!--        <link rel="stylesheet" href="--><?php //echo get_template_directory_uri(); ?><!--/css/style.css">-->
+        <title>Descrição do Evento</title>
     </head>
     <div id="mainHeader" style="width: 1940px;"></div>
     <main id='mainContent'>
