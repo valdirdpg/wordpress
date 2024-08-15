@@ -19,9 +19,6 @@ $template_directory_uri = get_template_directory_uri();
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-<!--        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">-->
-<!--        <link rel="stylesheet" href="--><?php //echo get_template_directory_uri(); ?><!--/css/osba-eventos.css">-->
-<!--        <link rel="stylesheet" href="--><?php //echo get_template_directory_uri(); ?><!--/css/style.css">-->
         <title>Descrição do Evento</title>
     </head>
     <div id="mainHeader" style="width: 1940px;"></div>
@@ -205,15 +202,15 @@ $template_directory_uri = get_template_directory_uri();
 
             if (monthEvents.length > 0) {
                 monthEvents.forEach(event => {
-                    console.log(event); // Verifique o que está dentro do objeto 'event'
+                    console.log(event);
 
-                    let titleText = (typeof event.title === 'object') ? JSON.stringify(event.title) : event.title;
+                    let titleText = event.title ? event.title : 'Título não disponível';
 
                     let color = event.tipo === 'Gratuito' ? '#44996c' : '#BE7229';
                     legend.append(`
             <div class="ev-legend-item">
                 <div class="color-box" style="background-color: ${color}; flex-shrink: 0;"></div>
-                <span>${titleText ? titleText : ''}</span>
+                <span>${titleText}</span>
             </div>
             `);
                 });
@@ -232,6 +229,10 @@ $template_directory_uri = get_template_directory_uri();
                 currentMonth--;
             }
             loadEventsAndRenderCalendar(currentMonth, currentYear);
+
+            // Ajusta a cor dos botões
+            $("#ev-prev-month").css("background-color", "#FFF4DA");
+            $("#ev-next-month").css("background-color", "white");
         });
 
         $("#ev-next-month").on("click", function() {
@@ -242,6 +243,10 @@ $template_directory_uri = get_template_directory_uri();
                 currentMonth++;
             }
             loadEventsAndRenderCalendar(currentMonth, currentYear);
+
+            // Ajusta a cor dos botões
+            $("#ev-next-month").css("background-color", "#FFF4DA");
+            $("#ev-prev-month").css("background-color", "white");
         });
 
         // Carregar eventos iniciais e renderizar o calendário
@@ -275,6 +280,7 @@ $template_directory_uri = get_template_directory_uri();
     .item {
         padding: 20px;
     }
+
     @font-face {
         font-family: 'Raleway';
         font-weight: normal;
@@ -392,32 +398,16 @@ $template_directory_uri = get_template_directory_uri();
         width: 80%; /* Largura percentual para ser responsiva */
         max-width: 1140px; /* Largura fixa máxima */
         margin: 0 auto; /* Centraliza o container horizontalmente */
-        margin-top: -150px;
+        margin-top: -110px;
         min-height: 600px; /* Define uma altura mínima para o container */
     }
-
-    @media (max-width: 1024px) {
-        .event-container {
-            grid-template-columns: 1fr; /* Coloca as colunas em uma única coluna em telas menores */
-            width: 90%; /* Aumenta a largura para preencher mais a tela */
-        }
-    }
-
-    @media (max-width: 768px) {
-        .event-container {
-            width: 100%; /* Preenche completamente a tela em dispositivos móveis */
-            margin-top: 20px; /* Remove a margem negativa superior para um layout melhor em telas pequenas */
-            gap: 10px; /* Reduz o espaçamento entre os elementos */
-        }
-    }
-
 
     .event-content-column {
         width: 100%;
         padding-top: 50px;
     }
 
-    .event-title{
+    .event-title {
         padding-top: 60px;
         padding-bottom: 10px;
         font-family: "Nocturno Display Bold";
@@ -458,8 +448,8 @@ $template_directory_uri = get_template_directory_uri();
         align-items: center;
         margin-bottom: 15px;
         font-weight: bold;
-        /*font-size: 22px;*/
     }
+
     #calendar-month {
         font-size: 22px;
         text-transform: uppercase;
@@ -470,11 +460,11 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     #calendar-month-year-container {
-        white-space: nowrap; /* Garante que o mês e o ano fiquem na mesma linha */
+        white-space: nowrap;
     }
 
     #calendar-month::after {
-        content: " "; /* Adiciona um espaço após o mês */
+        content: " ";
     }
 
     #calendar-navigation span {
@@ -488,12 +478,12 @@ $template_directory_uri = get_template_directory_uri();
         width: 100%;
         text-align: center;
         border-collapse: collapse;
-        background-color: #FFFFFF; /* Fundo branco do calendário */
+        background-color: #FFFFFF;
     }
 
     #calendar-table th, #calendar-table td {
         padding: 10px;
-        border: none; /* Remove as linhas de grade */
+        border: none;
     }
 
     .event-day {
@@ -502,7 +492,7 @@ $template_directory_uri = get_template_directory_uri();
 
     th {
         font-family: Raleway;
-        font-weight: lighter;
+        font-weight: 400;
         font-size: 12px;
         color: #696969;
     }
@@ -510,15 +500,15 @@ $template_directory_uri = get_template_directory_uri();
     #calendar-body {
         font-family: Raleway;
         color: #696969;
-        font-weight: lighter;
+        font-weight: normal;
         font-size: 16px;
     }
 
     .event-day-free, .event-day-paid {
         padding: 5px;
         display: flex;
-        justify-content: center; /* Centraliza o conteúdo horizontalmente */
-        align-items: center; /* Centraliza o conteúdo verticalmente */
+        justify-content: center;
+        align-items: center;
         width: 30px;
         height: 30px;
         text-align: center;
@@ -536,10 +526,10 @@ $template_directory_uri = get_template_directory_uri();
 
     .ev-legend {
         margin-top: 20px;
-        flex-grow: 0; /* Impede que a legenda cresça além do necessário */
+        flex-grow: 0;
         font-family: Raleway;
         font-size: 14px;
-        font-weight: 400;
+        font-weight:normal;
     }
 
     .ev-legend-item {
@@ -549,18 +539,17 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     .color-box {
-        width: 20px; /* Largura fixa */
-        height: 20px; /* Altura fixa, igual à largura para garantir que seja um quadrado */
+        width: 20px;
+        height: 20px;
         margin-right: 10px;
-        flex-shrink: 0; /* Impede que o quadrado diminua de tamanho caso o título da legenda seja longo */
+        flex-shrink: 0;
     }
 
-    /* Estilo do banner de detalhamento do evento */
     .ev-grid-item {
         display: flex;
-        align-items: stretch; /* Mantém ev-item-left e ev-item-right na mesma altura */
-        width: 100%; /* Garante que o grid ocupe toda a largura disponível */
-        border: none; /* Remove qualquer borda extra */
+        align-items: stretch;
+        width: 100%;
+        border: none;
         height: 147px;
         border-radius: 0;
     }
@@ -568,18 +557,18 @@ $template_directory_uri = get_template_directory_uri();
     .ev-item-left {
         display: flex;
         flex-direction: column;
-        background-color: #5FB085; /* Cor do primeiro tom de verde */
+        background-color: #5FB085;
         color: white;
         text-align: center;
-        width: 169px; /* Largura fixa conforme especificado */
-        height: 147px; /* Altura fixa conforme especificado */
-        border-radius: 0; /* Remove o arredondamento dos cantos */
+        width: 169px;
+        height: 147px;
+        border-radius: 0;
     }
 
     .ev-item-left .ev-date {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; /* Mantém o topo preenchido */
+        justify-content: flex-start;
         height: 100%;
     }
 
@@ -587,13 +576,14 @@ $template_directory_uri = get_template_directory_uri();
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #BE7229; /* Segundo tom de verde */
-        height: 70%; /* Preenche a parte superior */
+        background-color: #BE7229;
+        height: 70%;
         font-size: 48px;
         font-family: "Nocturno Display Bold";
     }
+
     .ev-weekday-block-paid {
-        background-color: #DF8835; /* Primeiro tom de verde no bloco inferior */
+        background-color: #DF8835;
         width: 50%;
         display: flex;
         justify-content: center;
@@ -603,7 +593,7 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     .ev-time-block-paid {
-        background-color: #AE5907; /* Segundo tom de verde no bloco inferior */
+        background-color: #AE5907;
         width: 50%;
         display: flex;
         justify-content: center;
@@ -614,26 +604,26 @@ $template_directory_uri = get_template_directory_uri();
 
     .ev-weekday-time-paid {
         display: flex;
-        height: 30%; /* Preenche a parte inferior */
+        height: 30%;
     }
 
     .ev-weekday-time {
         display: flex;
-        height: 30%; /* Preenche a parte inferior */
+        height: 30%;
     }
 
     .ev-day-month {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #5FB085; /* Segundo tom de verde */
-        height: 70%; /* Preenche a parte superior */
+        background-color: #5FB085;
+        height: 70%;
         font-size: 48px;
         font-family: "Nocturno Display Bold";
     }
 
     .ev-weekday-block {
-        background-color: #65C692; /* Primeiro tom de verde no bloco inferior */
+        background-color: #65C692;
         width: 50%;
         display: flex;
         justify-content: center;
@@ -643,7 +633,7 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     .ev-time-block {
-        background-color: #44996C; /* Segundo tom de verde no bloco inferior */
+        background-color: #44996C;
         width: 50%;
         display: flex;
         justify-content: center;
@@ -653,13 +643,13 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     .ev-item-right {
-        width: 601px; /* Defina uma largura fixa de acordo com suas necessidades */
+        width: 601px;
         padding: 10px 20px;
-        background-color: #FCF6E8; /* Cor de fundo */
-        height: 147px; /* Altura fixa */
+        background-color: #FCF6E8;
+        height: 147px;
         border-radius: 0;
-        flex-grow: 0; /* Impede que o contêiner cresça */
-        overflow: hidden; /* Esconde qualquer conteúdo que exceda a largura */
+        flex-grow: 0;
+        overflow: hidden;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -667,9 +657,9 @@ $template_directory_uri = get_template_directory_uri();
 
     .ev-text-container {
         flex: 1;
-        white-space: normal; /* Permite a quebra de linha */
-        word-wrap: break-word; /* Quebra palavras longas */
-        overflow: hidden; /* Esconde o conteúdo que exceder */
+        white-space: normal;
+        word-wrap: break-word;
+        overflow: hidden;
     }
 
     .ev-price-button-container {
@@ -682,17 +672,17 @@ $template_directory_uri = get_template_directory_uri();
     .event-article {
         line-height: 1.8;
         font-family: Raleway;
-        font-weight: Normal;
+        font-weight: normal;
         font-size: 16px;
     }
 
     .ev-title, .ev-location, .ev-classification, .ev-info {
         margin: 0;
-        font-size: 20px; /* Aumenta o tamanho da fonte para melhorar a legibilidade */
-        line-height: 1.4; /* Ajusta o espaçamento entre as linhas */
-        white-space: nowrap; /* Impede que o texto quebre em várias linhas */
-        overflow: hidden; /* Esconde o excesso de texto */
-        text-overflow: ellipsis; /* Adiciona "..." ao final do texto se ele for muito longo */
+        font-size: 20px;
+        line-height: 1.4;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-family: Raleway;
     }
 
@@ -707,8 +697,8 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     .ev-button {
-        flex-shrink: 0; /* Impede que o botão seja redimensionado */
-        margin-left: 10px; /* Adiciona espaço entre o texto e o botão */
+        flex-shrink: 0;
+        margin-left: 10px;
     }
 
     .ev-free-btn, .ev-paid-btn {
@@ -740,9 +730,9 @@ $template_directory_uri = get_template_directory_uri();
 
     .ev-todos-os-eventos {
         display: flex;
-        justify-content: flex-start; /* Alinha o botão à esquerda */
-        align-items: center; /* Alinha verticalmente ao centro */
-        margin-top: 20px; /* Adiciona um espaço acima do botão */
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 20px;
     }
 
     .ev-btn-eventos {
@@ -754,9 +744,128 @@ $template_directory_uri = get_template_directory_uri();
         height: 29px;
         text-align: center;
         box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
-        margin-left: 0; /* Garante que o botão fique alinhado à esquerda */
+        margin-left: 0;
         margin-top: -60px;
         margin-bottom: 40px;
+    }
+
+    /* Responsividade */
+    @media (max-width: 1024px) {
+        .event-container {
+            grid-template-columns: 1fr; /* Coloca as colunas em uma única coluna em telas menores */
+            width: 90%; /* Aumenta a largura para preencher mais a tela */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .event-container {
+            width: 100%; /* Preenche completamente a tela em dispositivos móveis */
+            margin-top: 20px; /* Remove a margem negativa superior para um layout melhor em telas pequenas */
+            gap: 10px; /* Reduz o espaçamento entre os elementos */
+        }
+
+        .container {
+            grid-template-columns: 1fr; /* Coloca as colunas em uma única coluna em telas pequenas */
+            gap: 10px; /* Reduz o espaçamento entre os elementos */
+        }
+
+        .item {
+            padding: 10px; /* Reduz o padding nos itens para telas menores */
+        }
+
+        .event-header {
+            flex-direction: column; /* Muda a direção do flex para coluna em dispositivos móveis */
+            height: auto; /* Ajusta a altura para conteúdo em vez de viewport */
+        }
+
+        .event-header-img {
+            width: 100%; /* Ajusta a largura da imagem para caber no container */
+            height: auto; /* Ajusta a altura da imagem */
+        }
+
+        .event-title-overlay {
+            top: 50px; /* Ajusta a posição do título no overlay */
+            left: 20px; /* Reduz o espaçamento da esquerda */
+            font-size: 24px; /* Reduz o tamanho da fonte */
+        }
+
+        .event-calendar-column {
+            width: 100%; /* Ajusta a largura do calendário */
+            min-height: auto; /* Remove a altura mínima */
+            max-height: auto; /* Remove a altura máxima */
+        }
+
+        .ev-item-right {
+            width: 100%; /* Ajusta a largura do item direito */
+            height: auto; /* Remove a altura fixa */
+        }
+
+        .ev-grid-item {
+            flex-direction: column; /* Organiza os itens em coluna para melhor visualização */
+            height: auto; /* Remove a altura fixa */
+        }
+
+        .ev-title, .ev-location, .ev-classification, .ev-info {
+            font-size: 18px; /* Ajusta o tamanho da fonte para dispositivos móveis */
+        }
+
+        .ev-free-btn, .ev-paid-btn {
+            width: 100%; /* Ajusta a largura do botão para preencher o container */
+            font-size: 14px; /* Ajusta o tamanho da fonte */
+        }
+
+        .ev-todos-os-eventos {
+            justify-content: center; /* Centraliza o botão de ver todos os eventos */
+        }
+
+        .ev-btn-eventos {
+            width: 100%; /* Ajusta a largura do botão para preencher o container */
+            font-size: 14px; /* Ajusta o tamanho da fonte */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .event-title-overlay {
+            top: 20px; /* Ajusta a posição do título no overlay */
+            left: 10px; /* Reduz o espaçamento da esquerda */
+            font-size: 18px; /* Reduz ainda mais o tamanho da fonte */
+        }
+
+        .event-title {
+            font-size: 24px; /* Ajusta o tamanho da fonte */
+            padding-top: 30px; /* Ajusta o espaçamento superior */
+        }
+
+        .event-description {
+            font-size: 14px; /* Ajusta o tamanho da fonte */
+        }
+
+        .ev-banner {
+            flex-direction: column; /* Altera a direção do flex para coluna */
+            padding: 10px; /* Reduz o padding */
+        }
+
+        .ev-banner-date-time {
+            flex-direction: row; /* Organiza a data e a hora em linha */
+        }
+
+        .ev-banner-date,
+        .ev-banner-time {
+            margin: 5px; /* Ajusta a margem */
+        }
+
+        .ev-item-left, .ev-item-right {
+            width: 100%; /* Ajusta a largura dos itens */
+            height: auto; /* Remove a altura fixa */
+        }
+
+        .ev-item-right {
+            padding: 10px; /* Ajusta o padding */
+        }
+
+        .ev-free-btn, .ev-paid-btn {
+            font-size: 12px; /* Ajusta o tamanho da fonte */
+        }
     }
 
 </style>
