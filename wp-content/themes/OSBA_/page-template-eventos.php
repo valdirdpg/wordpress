@@ -32,19 +32,19 @@ get_header();
             <?php load_events_year(date('Y')); ?>
         </div>
 
-    <div class="ev-sidebar">
-        <div class="ev-calendar">
-            <h3>Calendário</h3>
-            <div id="calendar">
-                <div id="calendar-header">
-                    <span id="calendar-month-year"></span>
-                    <div id="calendar-navigation">
-                        <span id="prev-month">&lt;</span>
-                        <span id="next-month">&gt;</span>
+        <div class="ev-sidebar">
+            <div class="ev-calendar">
+                <h3>Calendário</h3>
+                <div id="calendar">
+                    <div id="calendar-header">
+                        <span id="calendar-month-year"></span>
+                        <div id="calendar-navigation">
+                            <span id="prev-month">&lt;</span>
+                            <span id="next-month">&gt;</span>
+                        </div>
                     </div>
-                </div>
-                <table id="calendar-table">
-                    <thead>
+                    <table id="calendar-table">
+                        <thead>
                         <tr>
                             <th>D</th>
                             <th>S</th>
@@ -54,22 +54,22 @@ get_header();
                             <th>S</th>
                             <th>S</th>
                         </tr>
-                    </thead>
-                    <tbody id="calendar-body"></tbody>
-                </table>
+                        </thead>
+                        <tbody id="calendar-body"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="ev-legend">
+                <h3>Legenda</h3>
+                <div id="event-legend"></div>
             </div>
         </div>
-        <div class="ev-legend">
-            <h3>Legenda</h3>
-            <div id="event-legend"></div>
-        </div>
     </div>
-</div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     jQuery(document).ready(function($) {
-         console.log('Script carregado e funcionando');
+        console.log('Script carregado e funcionando');
         let currentPage = 1;
         let currentYear = new Date().getFullYear();
         const eventsPerPage = -1;
@@ -91,9 +91,6 @@ get_header();
                 }
             });
         }
-
-
-
 
         function updateYearTitle(year) {
             $('#ev-page-title').text(`Eventos ${year}`);
@@ -203,7 +200,25 @@ get_header();
 
             render(currentMonth, currentYear);
 
+            function toggleActiveButton(button) {
+                // Remove a classe 'active' de ambos os botões
+                $('#prev-month, #next-month').removeClass('active');
+                // Adiciona a classe 'active' ao botão clicado
+                $(button).addClass('active');
+
+                // Alterna as cores dos botões
+                if (button.id === "prev-month") {
+                    $("#prev-month").css("background-color", "#FFF4DA");
+                    $("#next-month").css("background-color", "white");
+                } else {
+                    $("#next-month").css("background-color", "#FFF4DA");
+                    $("#prev-month").css("background-color", "white");
+                }
+            }
+
             $("#prev-month").on("click", function() {
+                toggleActiveButton(this);
+
                 if (currentMonth === 0) {
                     currentYear--;
                     currentMonth = 11;
@@ -214,6 +229,8 @@ get_header();
             });
 
             $("#next-month").on("click", function() {
+                toggleActiveButton(this);
+
                 if (currentMonth === 11) {
                     currentYear++;
                     currentMonth = 0;

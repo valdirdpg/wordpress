@@ -3,15 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
     <title>Eventos</title>
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
+    <style>
+        /* Estilos para o mês e ano separados */
+        #calendar-month {
+            font-size: 22px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
+        #calendar-year {
+            font-size: 20px;
+            color: black;
+        }
+
+        /* Outros estilos adicionais */
+        #calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo para manter um espaço simples entre mês e ano */
+        #calendar-month-year {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        /* Estilos para os botões de navegação */
+        #calendar-navigation span, .ev-slider-control {
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            background-color: white;
+            border: 1px solid #ddd;
+            margin-left: 5px;
+            transition: background-color 0.3s;
+        }
+
+        /* Cor quando o botão é clicado */
+        .active {
+            background-color: #FFF4DA;
+            color: black;
+        }
+
+        #calendar-navigation span:hover, .ev-slider-control:hover {
+            background-color: #f0f0f0;
+        }
+
+    </style>
 </head>
 <body>
 
 <div class="container">
     <div class="ev-last-events">
-        <h1>Próximos Eventos</h1>
+        <p id="ev-last-events">Próximos Eventos</p>
         <div class="ev-custom-grid" id="ev-custom-grid">
             <!-- Eventos serão carregados aqui via AJAX -->
         </div>
@@ -26,10 +76,12 @@
 
     <div class="ev-sidebar">
         <div class="ev-calendar">
-            <h3>Calendário</h3>
             <div id="calendar">
                 <div id="calendar-header">
-                    <span id="calendar-month-year"></span>
+                    <div id="calendar-month-year">
+                        <span id="calendar-month"></span>
+                        <span id="calendar-year"></span>
+                    </div>
                     <div id="calendar-navigation">
                         <span id="prev-month">&lt;</span>
                         <span id="next-month">&gt;</span>
@@ -37,22 +89,21 @@
                 </div>
                 <table id="calendar-table">
                     <thead>
-                        <tr>
-                            <th>D</th>
-                            <th>S</th>
-                            <th>T</th>
-                            <th>Q</th>
-                            <th>Q</th>
-                            <th>S</th>
-                            <th>S</th>
-                        </tr>
+                    <tr>
+                        <th>D</th>
+                        <th>S</th>
+                        <th>T</th>
+                        <th>Q</th>
+                        <th>Q</th>
+                        <th>S</th>
+                        <th>S</th>
+                    </tr>
                     </thead>
                     <tbody id="calendar-body"></tbody>
                 </table>
             </div>
         </div>
         <div class="ev-legend">
-            <h3>Legenda</h3>
             <div id="event-legend"></div>
         </div>
     </div>
@@ -79,15 +130,33 @@
             });
         }
 
+        function toggleEventButtons(button) {
+            // Remove a classe 'active' de ambos os botões
+            $('#prev-events, #next-events').removeClass('active');
+            // Adiciona a classe 'active' ao botão clicado
+            $(button).addClass('active');
+
+            // Alterna as cores dos botões
+            if (button.id === "prev-events") {
+                $("#prev-events").css("background-color", "#FFF4DA");
+                $("#next-events").css("background-color", "white");
+            } else {
+                $("#next-events").css("background-color", "#FFF4DA");
+                $("#prev-events").css("background-color", "white");
+            }
+        }
+
         $('#next-events').on('click', function() {
             currentPage++;
             loadEvents(currentPage);
+            toggleEventButtons(this);
         });
 
         $('#prev-events').on('click', function() {
             if (currentPage > 1) {
                 currentPage--;
                 loadEvents(currentPage);
+                toggleEventButtons(this);
             }
         });
 
@@ -109,7 +178,9 @@
                 let calendarBody = $("#calendar-body");
                 calendarBody.empty();
 
-                $("#calendar-month-year").text(`${monthNames[month]} ${year}`);
+                // Atualizando mês e ano separadamente
+                $("#calendar-month").text(monthNames[month]);
+                $("#calendar-year").text(year);
 
                 let date = 1;
                 for (let i = 0; i < 6; i++) {
@@ -156,11 +227,11 @@
 
                 if (monthEvents.length > 0) {
                     monthEvents.forEach(event => {
-                        let color = event.tipo === 'Gratuito' ? '#44996c' : '#0A246A';
+                        let color = event.tipo === 'Gratuito' ? '#44996c' : '#BE7229';
                         legend.append(`
                             <div class="ev-legend-item">
                                 <div class="color-box" style="background-color: ${color}; flex-shrink: 0;"></div>
-                                <span>${event.grupo} - ${event.title}</span>
+                                <span>${event.title}</span>
                             </div>
                         `);
                     });
@@ -171,7 +242,25 @@
 
             render(currentMonth, currentYear);
 
+            function toggleActiveButton(button) {
+                // Remove a classe 'active' de ambos os botões
+                $('#prev-month, #next-month').removeClass('active');
+                // Adiciona a classe 'active' ao botão clicado
+                $(button).addClass('active');
+
+                // Alterna as cores dos botões
+                if (button.id === "prev-month") {
+                    $("#prev-month").css("background-color", "#FFF4DA");
+                    $("#next-month").css("background-color", "white");
+                } else {
+                    $("#next-month").css("background-color", "#FFF4DA");
+                    $("#prev-month").css("background-color", "white");
+                }
+            }
+
             $("#prev-month").on("click", function() {
+                toggleActiveButton(this);
+
                 if (currentMonth === 0) {
                     currentYear--;
                     currentMonth = 11;
@@ -182,6 +271,8 @@
             });
 
             $("#next-month").on("click", function() {
+                toggleActiveButton(this);
+
                 if (currentMonth === 11) {
                     currentYear++;
                     currentMonth = 0;

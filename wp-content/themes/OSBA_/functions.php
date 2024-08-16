@@ -637,7 +637,7 @@ function load_events() {
         while ($eventos_query->have_posts()) : $eventos_query->the_post();
             $tipo_evento = get_field('tipo');
             $banner_class = $tipo_evento == 'Gratuito' ? 'banner-gratuito' : 'banner-pago';
-            $banner_color = $tipo_evento == 'Gratuito' ? '#44996c' : '#0A246A';
+            $banner_color = $tipo_evento == 'Gratuito' ? '#44996c' : '#BE7229';
             ?>
             <div class="ev-grid-item">
                 <div class="ev-item">

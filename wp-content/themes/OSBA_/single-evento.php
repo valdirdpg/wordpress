@@ -440,6 +440,7 @@ $template_directory_uri = get_template_directory_uri();
         background-color: #fff;
         border: 1px dashed #ddd;
         padding: 15px;
+
     }
 
     #calendar-header {
@@ -487,7 +488,8 @@ $template_directory_uri = get_template_directory_uri();
     }
 
     .event-day {
-        font-weight: bold;
+        font-weight: normal;
+
     }
 
     th {
@@ -501,7 +503,7 @@ $template_directory_uri = get_template_directory_uri();
         font-family: Raleway;
         color: #696969;
         font-weight: normal;
-        font-size: 16px;
+        font-size: 18px;
     }
 
     .event-day-free, .event-day-paid {
@@ -527,15 +529,21 @@ $template_directory_uri = get_template_directory_uri();
     .ev-legend {
         margin-top: 20px;
         flex-grow: 0;
-        font-family: Raleway;
-        font-size: 14px;
-        font-weight:normal;
+
     }
 
     .ev-legend-item {
         display: flex;
         align-items: center;
         margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    #event-legend {
+        font-family: Raleway;
+        font-size: 14px;
+        font-weight:200;
     }
 
     .color-box {
@@ -747,6 +755,7 @@ $template_directory_uri = get_template_directory_uri();
         margin-left: 0;
         margin-top: -60px;
         margin-bottom: 40px;
+
     }
 
     /* Responsividade */

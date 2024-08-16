@@ -1,728 +1,795 @@
- /* Seu CSS existente */
-
-        /* Cores para banners gratuitos e pagos */
-
-        .banner-gratuito .ev-banner-date {
-            background-color: #44996c; /* Cor verde */
-        }
-        .banner-gratuito .ev-banner-time {
-            background-color: #5fb085; /* Cor verde */
-        }
-
-        .banner-pago .ev-banner-date {
-            background-color: #0A246A; /* Cor azul */
-        }
-        .banner-pago .ev-banner-time {
-            background-color: #10359a; /* Cor azul */
-        }
-
-        /* Estilos para o calendário */
-        .event-day {
-            display: inline-block;
-            width: 100%;
-            height: 100%;
-            line-height: 30px; /* Ajuste a altura para centralizar o texto verticalmente */
-            text-align: center;
-            font-weight: bold;
-            color: black;
-        }
-        .content-wrapper {
-            max-width: 1140px;
-            margin: 0 auto; /* Centraliza o conteúdo */
-            padding-left: 15px;
-            padding-right: 15px; /* Adiciona um pequeno padding para evitar que o conteúdo encoste nas bordas */
-        }
-
-
-        .event-day-free {
-            background-color: #44996c; /* Cor verde */
-            color: white;
-        }
-
-        .event-day-paid {
-            background-color: #0A246A; /* Cor azul */
-            color: white;
-        }
-
-        /* Estilos para a barra lateral */
-        .ev-sidebar {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .ev-calendar, .ev-legend {
-            flex: 1;
-            min-height: 200px; /* Altura mínima para garantir que tenha espaço suficiente */
-            margin-bottom: 20px; /* Espaço entre as seções */
-        }
-
-        .ev-legend-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .no-events-message {
-            text-align: center;
-            margin: 50px auto;
-            padding: 20px;
-            max-width: 500px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .no-events-message p {
-            font-size: 18px;
-            color: #333;
-        }
-        /* Alinhamento do título e botões na mesma linha, alinhados à esquerda */
-        .ev-title-container {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin-left: 300px;
-        }
-
-
-        /* Estilo dos botões circulares */
-        .circular-btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            font-size: 18px;
-            cursor: pointer;
-        }
-
-        /* Agrupando os botões com três espaços de distância do ano */
-        .ev-btn-group {
-            display: flex;
-            gap: 5px;
-            margin-left: 0.6em; /* Três espaços correspondem a 0.6em */
-        }
-
-        /* Adicionando um efeito de hover aos botões */
-        .circular-btn:hover {
-            background-color: #f0f0f0;
-        }
-
-        /* Ajustando o título para não colidir com os botões */
-        .ev-title-container h2 {
-            margin: 0;
-            padding: 0;
-        }
-
-        .color-box {
-            width: 20px; /* Largura fixa */
-            height: 20px; /* Altura fixa, igual à largura para garantir que seja um quadrado */
-            margin-right: 10px;
-            flex-shrink: 0; /* Impede que o quadrado diminua de tamanho caso o título da legenda seja longo */
-        }
-
-        /* Estilos para o slider */
-        .ev-slider-container {
-            position: relative;
-        }
-
-        .ev-slider-controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
-        }
-
-        .ev-slider-control {
-            background: rgb(255, 255, 255);
-            color: #0a0a0a;
-            border: solid 1px #0a0a0a;
-            width: 40px; /* Largura do botão */
-            height: 40px; /* Altura do botão */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border-radius: 50%; /* Bordas redondas */
-            margin: 0 10px;
-        }
-
-        .ev-legend-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .ev-legend-item .color-box {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-
-        .color-red { background-color: #D9534F; }
-        .color-orange { background-color: #F0AD4E; }
-        .color-pink { background-color: #D2B4DE; }
-        .color-purple { background-color: #D39DDB; }
-        .color-green { background-color: #5CB85C; }
-        .color-black { background-color: #292B2C; }
-
-        #calendar {
-            width: 100%;
-            max-width: 350px;
-            margin: 0 auto;
-            border: 0px solid #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            font-family: "Nocturno Display Bold", Sans-serif;
-        }
-
-       #calendar-navigation {
-           /* position: absolute;*/
-            right: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        #calendar-navigation span {
-            cursor: pointer;
-            font-size: 1.2em;
-            user-select: none;
-            width: 30px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            border-radius: 50%;
-            border: 2px solid #ddd;
-            margin-left: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #fff;
-            color: #333;
-            font-weight: bold;
-        }
-
-        #calendar-navigation span:hover {
-            background-color: #f0f0f0;
-        }
-
-        #calendar-navigation span#prev-month {
-            background-color: #fff;
-            border-color: #0a0a0a;
-            color: #333;
-            border: 0.5px;
-            border-style: solid;
-        }
-
-        #calendar-navigation span#next-month {
-            background-color: #ffffff;
-            border-color: #0a0a0a;
-            color: #333;
-            border: 0.5px;
-            border-style: solid;
-
-        }
-
-        .ev-month-title {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        #calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #ffffff;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        #calendar-month-year {
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-
-        #prev-month, #next-month {
-            cursor: pointer;
-            font-size: 1.2em;
-            user-select: none;
-        }
-
-        #calendar-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        #calendar-table th, #calendar-table td {
-            width: 14.28%;
-            height: 30px;
-            text-align: center;
-            border: 0px solid #ddd;
-        }
-
-        #calendar-table th {
-            background-color: #ffffff;
-            font-weight: bold;
-        }
-
-        event-day-free {
-            background-color: #44996c;
-            color: white;
-            display: inline-block;
-            width: 100%;
-            height: 100%;
-            line-height: 30px; /* Ajuste a altura para centralizar o texto verticalmente */
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .event-day-paid {
-            background-color: #0A246A;
-            color: white;
-            display: inline-block;
-            width: 100%;
-            height: 100%;
-            line-height: 30px; /* Ajuste a altura para centralizar o texto verticalmente */
-            text-align: center;
-            font-weight: bold;
-        }
-        .ev-pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
-        }
-
-        .ev-pagination a {
-            margin: 0 10px;
-            padding: 10px;
-            background-color: #004085;
-            color: white;
-            text-decoration: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-        }
-
-        .ev-pagination a.disabled {
-            background-color: #ccc;
-            pointer-events: none;
-        }
-
-        .ev-pagination a i {
-            font-size: 20px;
-        }
-
-        .ev-btn-eventos {
-            background-color: #fcf6e8;
-            color: #000;
-            border: 0.5px;
-            border-style: solid;
-            border-color: #0A246A;
-            font-size: 12px;
-            padding: 5px 16px 3px 16px;
-            display: block; /* Adicionado para garantir que o botão seja tratado como um bloco */
-            width: fit-content; /* Ajusta a largura ao conteúdo */
-            margin: 0 auto; /* Centraliza o botão horizontalmente */
-        }
-
-        body, html {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            /*padding: 20px;*/
-            display: flex;
-            justify-content: center;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            overflow-x: hidden; /* Isso ajuda a evitar qualquer rolagem horizontal indesejada */
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1140px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
-            display: flex;
-            flex-direction: row; /* Adiciona a exibição em linha para o container principal */
-        }
-
-        .ev-last-events {
-            flex: 1; /* Permite que a seção de eventos ocupe o máximo de espaço disponível */
-            align-items: center;
-        }
-
-        .ev-custom-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            width: 100%;
-        }
-
-        .ev-grid-item {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .ev-custom-img {
-            width: 100%;  /* Remove a definição de altura */
-            height: auto;  /* Remove a definição de altura */
-            object-fit: cover;  /* Nova propriedade para redimensionar a imagem */
-            position: relative;
-        }
-
-        .ev-img-wrapper {
-            width: 100%;
-            height: auto;
-            position: relative;
-        }
-
-        .ev-banner {
-            position: absolute;
-            bottom: 0; /* Posiciona o banner no final da imagem */
-            left: 0; /* Remove o padding para a margem esquerda */
-            width: 100px; /* Ajuste conforme necessário */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .ev-banner-date,
-        .ev-banner-time {
-            width: 100%; /* Ajusta a largura para 100% do contêiner */
-            padding: 5px 0; /* Remove o padding para a margem esquerda e direita */
-            text-align: center;
-        }
-
-        .ev-banner-date {
-            background: #da35ce;
-            color: white;
-            padding: 10px 15px;
-            font-family: "Nocturno Display Bold", Sans-serif;
-            font-weight: bold;
-            font-size: 20px;
-            line-height: 1.2;
-            text-align: center;
-            width: 100%;
-        }
-
-        .ev-banner-time {
-            background: #bc1bb0;
-            color: white;
-            padding: 5px 15px;
-            font-family: "Nocturno Display Bold", Sans-serif;
-            font-weight: bold;
-            font-size: 16px;
-            line-height: 1.2;
-            text-align: center;
-            width: 100%;
-        }
-
-        .ev-horizontal-line {
-            position: absolute;
-            top: 97%;
-            left: 100px;
-            width: calc(100% - 80px);
-            height: 8px;
-            background-color: #da35ce;
-            z-index: 1;
-        }
-
-        .ev-events-body {
-            padding: 15px;
-        }
-
-        .ev-title {
-            font-size: 18px;
-            margin: 0 0 10px;
-            color: #333;
-        }
-
-        .ev-btn-primary-grt, .ev-btn-outline-secondary, .ev-btn-primary, .ev-btn-eventos {
-            display: inline-block;
-            padding: 5px 10px;
-            text-decoration: none;
-            border-radius: 30px;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .ev-btn-outline-secondary {
-            background-color: #fcf6e8;
-            color: #333;
-            border: 1px solid #ddd;
-            padding: 2px 16px 2px 16px;
-        }
-
-        .ev-btn-outline-secondary:hover {
-            background-color: #ddd;
-        }
-
-        .ev-btn-primary {
-            background-color: #004085;
-            color: white;
-            border: none;
-            font-size: 12px;
-            padding: 5px 16px 3px 16px;
-            margin-left: 45px;
-        }
-
-        .ev-btn-primary-grt {
-            background-color: #5fb085;
-            color: white;
-            border: none;
-            font-size: 12px;
-            padding: 5px 40px 3px 40px;
-            margin-left: 45px;
-        }
-
-        .ev-btn-primary:hover {
-            background-color: #003366;
-        }
-
-        .ev-banner-title {
-            text-transform: uppercase;
-        }
-
-        .ev-content {
-            font-size: 16px;
-            margin: 0 0 10px;
-            color: #000;
-            font-weight: normal;
-        }
-        .ev-todos-os-eventos{
-            padding-top: 20px;
-            padding-bottom: 20px;
-
-        }
-        .ev-btn-eventos {
-            background-color: #fcf6e8;
-            color: #000;
-            border: 0.5px;
-            border-style: solid;
-            border-color: #0A246A;
-            font-size: 12px;
-            padding: 5px 16px 3px 16px;
-            display: block; /* Adicionado para garantir que o botão seja tratado como um bloco */
-            width: fit-content; /* Ajusta a largura ao conteúdo */
-            margin: 0 auto; /* Centraliza o botão horizontalmente */
-        }
-
-        /* Estilos para a barra lateral */
-        .ev-sidebar {
-            margin-top: 50px;
-            width: 30%;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            margin-left: 20px; /* Adiciona um espaço entre a seção de eventos e a barra lateral */
-        }
-
-        .ev-sidebar h3 {
-            font-size: 20px;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .ev-calendar {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            margin-bottom: 20px;
-            height: 30%;
-        }
-
-        .ev-legend {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-        }
-
-        .ev-legend-item {
-            margin-bottom: 10px;
-        }
-
-        .ev-legend-item span {
-            font-weight: bold;
-            color: #333;
-        }
-
-        @media (max-width: 768px) {
-            body {
+            /* Cores para banners gratuitos e pagos */
+
+            .banner-gratuito .ev-banner-date {
+                background-color: #44996c; /* Cor verde */
+                font-size: 24px;
+            }
+
+            .banner-gratuito .ev-banner-time {
+                background-color: #5fb085; /* Cor verde */
+                font-size: 20px;
+            }
+
+            .banner-pago .ev-banner-date {
+                background-color: #BE7229; /* Nova cor para o banner da data de evento pago */
+                font-size: 24px;
+            }
+
+            .banner-pago .ev-banner-time {
+                background-color: #AE5907; /* Nova cor para o banner do horário de evento pago */
+                font-size: 20px;
+            }
+
+            /* Estilos para o calendário */
+            .event-day {
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+                line-height: 3.5; /* Ajuste a altura para centralizar o texto verticalmente */
+                text-align: center;
+                font-weight:normal;
+                color: black;
+            }
+
+            .content-wrapper {
+                max-width: 1140px;
+                margin: 0 auto; /* Centraliza o conteúdo */
+                padding-left: 15px;
+                padding-right: 15px; /* Adiciona um pequeno padding para evitar que o conteúdo encoste nas bordas */
+            }
+
+            .event-day-free, .event-day-paid {
+                padding: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 30px;
+                height: 30px;
+                text-align: center;
+            }
+
+            .event-day-free {
+                background-color: #5FB085;
+                color: #fff;
+            }
+
+            .event-day-paid {
+                background-color: #BE7229;
+                color: #fff;
+            }
+
+
+            /* Estilos para a barra lateral */
+            .ev-sidebar {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+
+            .ev-calendar, .ev-legend {
+                flex: 1;
+                min-height: 200px; /* Altura mínima para garantir que tenha espaço suficiente */
+                margin-bottom: 20px; /* Espaço entre as seções */
+            }
+
+            .ev-legend-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            /* Marcação da legenda do evento pago */
+            .ev-legend-item .color-box-paid {
+                background-color: #BE7229; /* Nova cor para a caixa de cor na legenda do evento pago */
+            }
+
+            th {
+                font-family: Raleway;
+                font-weight: 400;
+                font-size: 12px;
+                color: #696969;
+            }
+
+            #calendar-body {
+                font-family: Raleway;
+                color: #696969;
+                font-weight: normal;
+                font-size: 18px;
+            }
+
+            .no-events-message {
+                text-align: center;
+                margin: 50px auto;
+                padding: 20px;
+                max-width: 500px;
+                background-color: #f9f9f9;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .no-events-message p {
+                font-size: 18px;
+                color: #333;
+            }
+
+            /* Alinhamento do título e botões na mesma linha, alinhados à esquerda */
+            .ev-title-container {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                margin-left: 300px;
+            }
+
+            /* Estilo dos botões circulares */
+            .circular-btn {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                font-size: 18px;
+                cursor: pointer;
+            }
+
+            /* Agrupando os botões com três espaços de distância do ano */
+            .ev-btn-group {
+                display: flex;
+                gap: 5px;
+                margin-left: 0.6em; /* Três espaços correspondem a 0.6em */
+            }
+
+            /* Adicionando um efeito de hover aos botões */
+            .circular-btn:hover {
+                background-color: #f0f0f0;
+            }
+
+            /* Ajustando o título para não colidir com os botões */
+            .ev-title-container h2 {
+                margin: 0;
+                padding: 0;
+            }
+
+            .color-box {
+                width: 20px; /* Largura fixa */
+                height: 20px; /* Altura fixa, igual à largura para garantir que seja um quadrado */
+                margin-right: 10px;
+                flex-shrink: 0; /* Impede que o quadrado diminua de tamanho caso o título da legenda seja longo */
+            }
+
+            /* Estilos para o slider */
+            .ev-slider-container {
+                position: relative;
+            }
+
+            .ev-slider-controls {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 20px 0;
+            }
+
+            .ev-slider-control {
+                background: rgb(255, 255, 255);
+                color: #0a0a0a;
+                border: solid 1px #0a0a0a;
+                width: 40px; /* Largura do botão */
+                height: 40px; /* Altura do botão */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                border-radius: 50%; /* Bordas redondas */
+                margin: 0 10px;
+            }
+
+            .ev-legend-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+
+            .ev-legend-item .color-box {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+            }
+
+            .color-red { background-color: #D9534F; }
+            .color-orange { background-color: #F0AD4E; }
+            .color-pink { background-color: #D2B4DE; }
+            .color-purple { background-color: #D39DDB; }
+            .color-green { background-color: #5CB85C; }
+            .color-black { background-color: #292B2C; }
+
+            #calendar {
+                width: 100%;
+                max-width: 372px;
+                max-height: 365px;
+                margin: 0 auto;
+                border: 0px solid #ddd;
+                border-radius: 10px;
+                overflow: hidden;
+                font-family: "Nocturno Display Bold", Sans-serif;
+            }
+
+            #calendar-navigation {
+                right: 10px;
+                display: flex;
+                align-items: center;
+            }
+
+            #calendar-navigation span {
+                cursor: pointer;
+                font-size: 1.2em;
+                user-select: none;
+                width: 30px;
+                height: 30px;
+                line-height: 1.8;
+                text-align: center;
+                border-radius: 50%;
+                border: 2px solid #ddd;
+                margin-left: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #fff;
+                color: #333;
+                font-weight: bold;
+            }
+
+            #calendar-navigation span:hover {
+                background-color: #f0f0f0;
+            }
+
+            #calendar-navigation span#prev-month {
+                background-color: #fff;
+                border-color: #0a0a0a;
+                color: #333;
+                border: 0.5px solid;
+            }
+
+            #calendar-navigation span#next-month {
+                background-color: #ffffff;
+                border-color: #0a0a0a;
+                color: #333;
+                border: 0.5px solid;
+            }
+
+            .ev-month-title {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            #calendar-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #ffffff;
                 padding: 10px;
+                font-size: 16px;
+            }
+
+            #calendar-month-year {
+                font-size: 1.5em;
+                font-weight: bold;
+            }
+
+            #prev-month, #next-month {
+                cursor: pointer;
+                font-size: 1.2em;
+                user-select: none;
+            }
+
+            #calendar-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            #calendar-table th, #calendar-table td {
+                width: 14.28%;
+                height: 30px;
+                text-align: center;
+                border: 0px solid #ddd;
+            }
+
+            #calendar-table th {
+                background-color: #ffffff;
+                font-weight: bold;
+            }
+
+
+
+
+            .ev-pagination {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 20px 0;
+            }
+
+            .ev-pagination a {
+                margin: 0 10px;
+                padding: 10px;
+                background-color: #004085;
+                color: white;
+                text-decoration: none;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 40px;
+                height: 40px;
+            }
+
+            .ev-pagination a.disabled {
+                background-color: #ccc;
+                pointer-events: none;
+            }
+
+            .ev-pagination a i {
+                font-size: 20px;
+            }
+
+            .ev-btn-eventos {
+                background-color: #fcf6e8;
+                color: #000;
+                border: 0.5px solid;
+                border-color: #0A246A;
+                font-size: 12px;
+                padding: 5px 16px 3px 16px;
+                display: block; /* Adicionado para garantir que o botão seja tratado como um bloco */
+                width: fit-content; /* Ajusta a largura ao conteúdo */
+                margin: 0 auto; /* Centraliza o botão horizontalmente */
+            }
+
+            body, html {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+                display: flex;
+                justify-content: center;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                overflow-x: hidden; /* Isso ajuda a evitar qualquer rolagem horizontal indesejada */
             }
 
             .container {
-                flex-direction: column; /* Muda a direção do layout para coluna em telas menores */
+                width: 100%;
+                max-width: 1140px;
+                margin: 0 auto;
+                background-color: #fff;
+                padding: 20px;
+                display: flex;
+                flex-direction: row; /* Adiciona a exibição em linha para o container principal */
             }
 
-            .ev-sidebar {
-                width: 100%;
-                margin-left: 0;
-                margin-top: 20px;
+            .ev-last-events {
+                flex: 1; /* Permite que a seção de eventos ocupe o máximo de espaço disponível */
+                align-items: center;
+            }
+
+            #ev-last-events {
+                font-family: "Nocturno Display Bold";
+                font-size: 32px;
+                margin-bottom: 38px;
             }
 
             .ev-custom-grid {
-                grid-template-columns: 1fr;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
                 width: 100%;
             }
+
+            .ev-grid-item {
+                background-color: white;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                position: relative;
+                width: 370px;
+                height: 400px;
+            }
+
+            .ev-custom-img {
+                width: 370px;
+                height: 170px;
+                object-fit: cover; /* Nova propriedade para redimensionar a imagem */
+                position: relative;
+            }
+
+            .ev-img-wrapper {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .ev-banner {
+                position: absolute;
+                bottom: 0; /* Posiciona o banner no final da imagem */
+                left: 0;
+                width: 100px;
+                height: 66px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+            }
+
+            /* Garantir que os elementos dentro do banner estejam centralizados */
+            .ev-banner-date,
+            .ev-banner-time {
+                width: 100%; /* Ajusta a largura para 100% do contêiner */
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 0;
+                padding: 5px 0; /* Ajustar conforme necessário */
+            }
+
+            .ev-banner-date {
+                background: #da35ce;
+                color: white;
+                padding: 10px 15px;
+                font-family: "Nocturno Display Bold", Sans-serif;
+                font-weight: bold;
+                height: 60%;
+            }
+
+            .ev-banner-time {
+                background: #bc1bb0;
+                color: white;
+                padding: 5px 15px;
+                font-family: "Nocturno Display Bold", Sans-serif;
+                font-weight: bold;
+                height: 40%;
+            }
+
+            .ev-horizontal-line {
+                position: absolute;
+                top: 95.5%;
+                left: 100px;
+                width: 100%;
+                height: 8px;
+                background-color: #BE7229;
+                z-index: 1;
+            }
+
+            .ev-events-body {
+                padding: 15px;
+            }
+
+            .ev-title {
+                font-size: 18px;
+                margin: 0 0 10px;
+                color: #333;
+            }
+
+            .ev-btn-primary-grt, .ev-btn-outline-secondary, .ev-btn-primary, .ev-btn-eventos {
+                display: inline-block;
+                padding: 5px 10px;
+                text-decoration: none;
+                border-radius: 30px;
+                transition: background-color 0.3s;
+                margin-top: 10px;
+                font-weight: bold;
+                box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+            }
+
+            .ev-btn-outline-secondary {
+                background-color: #fcf6e8;
+                color: #333;
+                border: 1px solid #ddd;
+                padding: 2px 16px 2px 16px;
+                font-family: Raleway;
+                font-weight: normal;
+                width: 116px;
+                height: 29px;
+                box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+            }
+
+            .ev-btn-outline-secondary:hover {
+                background-color: #ddd;
+            }
+
             .ev-btn-primary {
                 background-color: #004085;
                 color: white;
                 border: none;
-                font-size: 5px;
-                padding: 5px 16px 3px 16px;
-                align-items: center;
+                font-size: 14px;
+                padding: 5px 8px 3px 8px;
+                margin-left: 45px;
+                font-family: Raleway;
+                font-weight: normal;
+                width: 165px;
+                height: 29px;
+                text-align: center;
+                box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+
             }
+
             .ev-btn-primary-grt {
-            background-color: #5fb085;
-            color: white;
-            border: none;
-            font-size: 12px;
-            padding: 5px 40px 3px 40px;
-            margin-left: 45px;
-        }
-        }
+                background-color: #5fb085;
+                color: white;
+                border: none;
+                font-size: 14px;
+                padding: 5px 40px 3px 40px;
+                margin-left: 45px;
+                font-family: Raleway;
+                font-weight: normal;
+                width: 165px;
+                height: 29px;
+                text-align: center;
+                box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+            }
 
-        @media (max-width: 576px) {
-            .ev-title {
+            .ev-btn-primary:hover {
+                background-color: #003366;
+            }
+
+            .ev-banner-title {
+                text-transform: uppercase;
+                font-size: 24px;
+                font-family: "Nocturno Display Bold";
+            }
+
+            .ev-content {
                 font-size: 16px;
+                margin: 0 0 10px;
+                color: #000;
+                font-weight: normal;
+                font-family: Raleway;
+                line-height: 1.8;
             }
-            .ev-content {
+
+            .ev-todos-os-eventos {
+                padding-top: 20px;
+                padding-bottom: 20px;
+            }
+
+            .ev-btn-eventos {
+                background-color: #ECECEC;
+                color: #000;
+                border: 0.5px solid;
+                border-color: #0A246A;
+                font-size: 14px;
+                padding: 5px 16px 3px 16px;
+                display: block; /* Adicionado para garantir que o botão seja tratado como um bloco */
+                width: fit-content; /* Ajusta a largura ao conteúdo */
+                margin: 0 auto; /* Centraliza o botão horizontalmente */
+                width: 222px;
+                height: 29px;
+                font-family: Raleway;
+                font-weight: normal;
+                text-align: center;
+            }
+
+            /* Estilos para a barra lateral */
+            .ev-sidebar {
+                margin-top: 50px;
+                width: 30%;
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                padding: 10px;
+                margin-left: 20px; /* Adiciona um espaço entre a seção de eventos e a barra lateral */
+            }
+
+            .ev-sidebar h3 {
+                font-size: 20px;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+
+            .ev-calendar {
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                background-color: #fff;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                margin-bottom: 20px;
+                height: 30%;
+            }
+
+            .ev-legend {
+                background-color: #fff;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+            }
+
+            .ev-legend-item {
+                margin-bottom: 10px;
+            }
+
+            .ev-legend-item span {
+                font-weight: normal;
+                color: #333;
+                font-family: Raleway;
                 font-size: 14px;
             }
 
-            .ev-banner-date, .ev-banner-time {
-                width: 60px;
-                font-size: 14px;
-            }
-            .ev-horizontal-line {
-                top: 98%;
-                left: 60px;
-                width: calc(100% - 60px);
-            }
-            .ev-btn-outline-secondary,
-            .ev-btn-primary {
-                font-size: 10px;
-                padding: 4px 10px;
-            }
-        }
+            @media (max-width: 768px) {
+                body {
+                    padding: 10px;
+                }
 
-        /* Estilos para resolução específica de 390px x 844px */
-        @media (max-width: 390px) and (max-height: 844px) {
-            .ev-title {
-                font-size: 14px;
-            }
-            .ev-content {
-                font-size: 12px;
-            }
-            .ev-banner{
-                top: 82.5%;
-                left: -9px;
-            }
-            .ev-banner-date, .ev-banner-time {
-                width: 50px;
-                font-size: 12px;
-            }
-            .ev-horizontal-line {
-                top: 96%;
-                left: 50px;
-                width: calc(100% - 50px);
-            }
-            .ev-btn-outline-secondary,
-            .ev-btn-primary {
-                font-size: 8px;
-                padding: 3px 8px;
-            }
-        }
-         /* Estilos para resolução específica de 360px x 740px */
-        @media (max-width: 360px) and (max-height: 800px) {
-            .ev-title {
-                font-size: 14px;
-            }
-            .ev-content {
-                font-size: 12px;
-            }
-            .ev-banner{
-                top: 79.5%;
-                left: -0.5px;
+                .container {
+                    flex-direction: column; /* Muda a direção do layout para coluna em telas menores */
+                }
 
-            }
-            .ev-banner-date, .ev-banner-time {
-                width: 60px;
-                font-size: 12px;
-            }
-            .ev-horizontal-line {
-                margin-top:1%;
-                /*margin-left: -9px;*/
-                width: calc(100% - 50px);
-            }
-            .ev-btn-outline-secondary,
-            .ev-btn-primary {
-                font-size: 8px;
-                padding: 3px 8px;
-            }
-        }
+                .ev-sidebar {
+                    width: 100%;
+                    margin-left: 0;
+                    margin-top: 20px;
+                }
 
-        /* Estilos para resolução específica de 768px x 1154px */
-        @media (max-width: 786px) and (max-height: 1154px) {
-            .ev-title {
-                font-size: 17px;
+                .ev-custom-grid {
+                    grid-template-columns: 1fr;
+                    width: 100%;
+                }
+
+                .ev-btn-primary {
+                    background-color: #004085;
+                    color: white;
+                    border: none;
+                    font-size: 5px;
+                    padding: 5px 16px 3px 16px;
+                    align-items: center;
+                }
+
+                .ev-btn-primary-grt {
+                    background-color: #5fb085;
+                    color: white;
+                    border: none;
+                    font-size: 12px;
+                    padding: 5px 40px 3px 40px;
+                    margin-left: 45px;
+                }
             }
 
-            .ev-content {
-                font-size: 15px;
+            @media (max-width: 576px) {
+                .ev-title {
+                    font-size: 16px;
+                }
+
+                .ev-content {
+                    font-size: 14px;
+                }
+
+                .ev-banner-date, .ev-banner-time {
+                    width: 60px;
+                    font-size: 14px;
+                }
+
+                .ev-horizontal-line {
+                    top: 98%;
+                    left: 60px;
+                    width: 100%;
+                    color: #BE7229;
+                }
+
+                .ev-btn-outline-secondary,
+                .ev-btn-primary {
+                    font-size: 14px;
+                    padding: 4px 10px;
+                    font-family: Raleway;
+                    font-weight: normal;
+                }
             }
 
-            .ev-banner {
-                margin-top: -3%;
-                margin-left: -10px;
+            /* Estilos para resolução específica de 390px x 844px */
+            @media (max-width: 390px) and (max-height: 844px) {
+                .ev-title {
+                    font-size: 14px;
+                }
+
+                .ev-content {
+                    font-size: 12px;
+                }
+
+                .ev-banner {
+                    top: 82.5%;
+                    left: -9px;
+                }
+
+                .ev-banner-date, .ev-banner-time {
+                    width: 50px;
+                    font-size: 12px;
+                }
+
+                .ev-horizontal-line {
+                    top: 96%;
+                    left: 50px;
+                    width: 100%;
+                }
+
+                .ev-btn-outline-secondary,
+                .ev-btn-primary {
+                    font-size: 8px;
+                    padding: 3px 8px;
+                }
             }
 
-            .ev-banner-date, .ev-banner-time {
-                width: 70px;
-                font-size: 16px;
-                margin-left: -10px;
+            /* Estilos para resolução específica de 360px x 740px */
+            @media (max-width: 360px) and (max-height: 800px) {
+                .ev-title {
+                    font-size: 14px;
+                }
+
+                .ev-content {
+                    font-size: 12px;
+                }
+
+                .ev-banner {
+                    top: 79.5%;
+                    left: -0.5px;
+                }
+
+                .ev-banner-date, .ev-banner-time {
+                    width: 60px;
+                    font-size: 12px;
+                }
+
+                .ev-horizontal-line {
+                    margin-top: 1%;
+                    width: calc(100% - 50px);
+                }
+
+                .ev-btn-outline-secondary,
+                .ev-btn-primary {
+                    font-size: 8px;
+                    padding: 3px 8px;
+                }
             }
 
-            .ev-horizontal-line {
-                top: 94.5%;
-                left: 70px;
-                width: calc(100% - 70px);
-            }
+            /* Estilos para resolução específica de 768px x 1154px */
+            @media (max-width: 786px) and (max-height: 1154px) {
+                .ev-title {
+                    font-size: 17px;
+                }
 
-            .ev-btn-outline-secondary,
-            .ev-btn-primary-grt,
-            .ev-btn-primary {
-                font-size: 11px;
-                padding: 4px 12px;
-                margin-left: 0; /* Remove o margem esquerda */
-                display: flex;
-                justify-content: center; /* Centraliza horizontalmente */
-                align-items: center; /* Alinha verticalmente */
-                margin: 8px auto; /* Adiciona margem automática para centralizar */
+                .ev-content {
+                    font-size: 15px;
+                }
+
+                .ev-banner {
+                    margin-top: -3%;
+                    margin-left: -10px;
+                }
+
+                .ev-banner-date, .ev-banner-time {
+                    width: 70px;
+                    font-size: 16px;
+                    margin-left: -10px;
+                }
+
+                .ev-horizontal-line {
+                    top: 94.5%;
+                    left: 70px;
+                    width: calc(100% - 70px);
+                }
+
+                .ev-btn-outline-secondary,
+                .ev-btn-primary-grt,
+                .ev-btn-primary {
+                    font-size: 11px;
+                    padding: 4px 12px;
+                    margin-left: 0; /* Remove o margem esquerda */
+                    display: flex;
+                    justify-content: center; /* Centraliza horizontalmente */
+                    align-items: center; /* Alinha verticalmente */
+                    margin: 8px auto; /* Adiciona margem automática para centralizar */
+                }
             }
 
             /* Estilos para resolução específica de 768px x 866px */
@@ -737,7 +804,7 @@
 
                 .ev-banner {
                     margin-top: -8.5%;
-                    margin-left: -10px
+                    margin-left: -10px;
                 }
 
                 .ev-banner-date, .ev-banner-time {
@@ -763,4 +830,4 @@
                     margin: 8px auto; /* Adiciona margem automática para centralizar */
                 }
             }
-        }
+
