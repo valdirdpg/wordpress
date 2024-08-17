@@ -7,53 +7,6 @@
     <title>Eventos</title>
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
     <style>
-        /* Estilos para o mês e ano separados */
-        #calendar-month {
-            font-size: 22px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        #calendar-year {
-            font-size: 20px;
-            color: black;
-        }
-
-        /* Outros estilos adicionais */
-        #calendar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        /* Estilo para manter um espaço simples entre mês e ano */
-        #calendar-month-year {
-            display: flex;
-            align-items: baseline;
-            gap: 4px;
-        }
-
-        /* Estilos para os botões de navegação */
-        #calendar-navigation span, .ev-slider-control {
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 50%;
-            background-color: white;
-            border: 1px solid #ddd;
-            margin-left: 5px;
-            transition: background-color 0.3s;
-        }
-
-        /* Cor quando o botão é clicado */
-        .active {
-            background-color: #FFF4DA;
-            color: black;
-        }
-
-        #calendar-navigation span:hover, .ev-slider-control:hover {
-            background-color: #f0f0f0;
-        }
 
     </style>
 </head>
@@ -74,7 +27,7 @@
         </div>
     </div>
 
-    <div class="ev-sidebar">
+    <div class="ev-third-column">
         <div class="ev-calendar">
             <div id="calendar">
                 <div id="calendar-header">

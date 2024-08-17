@@ -788,10 +788,15 @@ function load_events_year($year = null) {
                 if ($current_month != '') {
                     echo '</div>'; // Fecha a div do mês anterior
                 }
-                echo '<h2 class="ev-month-title">' . ucfirst($event_month_name) . '</h2>';
+                echo '<p class="ev-month-title">' . ucfirst($event_month_name) . '</p>';
                 echo '<div id="ev-grid-' . $event_month_name . '" class="ev-custom-grid">';
                 $current_month = $event_month_name;
             }
+
+            // Adiciona o banner, hora e data
+            $tipo_evento = get_field('tipo');
+            $banner_class = $tipo_evento == 'Gratuito' ? 'banner-gratuito' : 'banner-pago';
+            $banner_color = $tipo_evento == 'Gratuito' ? '#44996c' : '#BE7229';
             ?>
 
             <div class="ev-grid-item">
@@ -800,13 +805,17 @@ function load_events_year($year = null) {
                         <picture>
                             <?php the_post_thumbnail('full', array('class' => 'ev-custom-img')); ?>
                         </picture>
+                        <div class="ev-banner <?php echo $banner_class; ?>">
+                            <span class="ev-banner-date"><?php echo date('d/m', strtotime(get_field('data'))); ?></span>
+                            <span class="ev-banner-time"><?php echo date('H', strtotime(get_field('inicio'))); ?>h</span>
+                        </div>
+                        <div class="ev-horizontal-line" style="background-color: <?php echo $banner_color; ?>"></div>
                     </div>
                     <div class="ev-events-body ev-item-body">
                         <h2 class="ev-title ev-banner-title"><?php the_title(); ?></h2>
                         <div class="ev-content"><?php echo get_field('resumo'); ?></div>
                         <a href="<?php the_permalink(); ?>" class="ev-btn ev-btn-outline-secondary">saiba mais</a>
                         <?php
-                        $tipo_evento = get_field('tipo');
                         if ($tipo_evento == 'Gratuito') {
                             echo '<a href="' . get_permalink() . '" class="ev-btn ev-btn-primary-grt">GRATUITO</a>';
                         } else {
@@ -836,6 +845,7 @@ function load_events_year($year = null) {
 
     return $response; // Retorna o conteúdo se não for AJAX
 }
+
 
 
 // Conecta a função ao AJAX

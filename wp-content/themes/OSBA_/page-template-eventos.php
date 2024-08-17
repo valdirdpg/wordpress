@@ -1,21 +1,78 @@
-<?php
-/*
-Template Name: EVENTOS
-*/
-get_header();
-?>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/osba-eventos.css">
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .ev-btn-outline-secondary {
+            background-color: #fcf6e8;
+            color: #333;
+            border: 1px solid #ddd;
+            padding: 2px 16px 2px 16px;
+            font-family: Raleway;
+            font-weight: normal;
+            width: 116px;
+            height: 29px;
+            box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.3);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* #calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .ev-calendar {
+            border: 0px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0px 8px rgba(-0.5, 0, 0, 0.5);
+            padding: 15px;
+            height: auto;
+        } */
+
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .ev-main-content {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ev-calendar-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    </style>
 </head>
+<body>
+
+<?php
+    /*
+    Template Name: EVENTOS
+    */
+    get_header();
+?>
+
 <div id="mainHeader" style="width: 2000px;"></div>
 
 <div class="page-header">
     <div class="ev-title-container">
-        <h2 class="title page-title" id="ev-page-title">Eventos <?php echo date('Y'); ?></h2>
+        <p class="title page-title" id="ev-page-title">Eventos <?php echo date('Y'); ?></p>
         <div class="ev-btn-group">
             <button id="prev-year" class="ev-btn-year circular-btn">&lt;</button>
             <button id="next-year" class="ev-btn-year circular-btn">&gt;</button>
@@ -27,14 +84,13 @@ get_header();
 
 <div class="container-fluid">
     <div class="container">
-        <div class="ev-last-events" id="ev-last-events">
+        <div class="ev-main-content" id="ev-last-events">
             <!-- Eventos serão carregados aqui -->
             <?php load_events_year(date('Y')); ?>
         </div>
 
-        <div class="ev-sidebar">
+        <div class="ev-calendar-column">
             <div class="ev-calendar">
-                <h3>Calendário</h3>
                 <div id="calendar">
                     <div id="calendar-header">
                         <span id="calendar-month-year"></span>
@@ -59,13 +115,14 @@ get_header();
                     </table>
                 </div>
             </div>
+
             <div class="ev-legend">
-                <h3>Legenda</h3>
                 <div id="event-legend"></div>
             </div>
         </div>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     jQuery(document).ready(function($) {
@@ -109,12 +166,16 @@ get_header();
         });
 
         $('#next-year').on('click', function() {
+            toggleActiveButton(this, 'year');
+
             currentYear++;
             updateYearTitle(currentYear);
             loadEvents(1, currentYear);
         });
 
         $('#prev-year').on('click', function() {
+            toggleActiveButton(this, 'year');
+
             currentYear--;
             updateYearTitle(currentYear);
             loadEvents(1, currentYear);
@@ -189,7 +250,7 @@ get_header();
                         legend.append(`
                             <div class="ev-legend-item">
                                 <div class="color-box" style="background-color: ${color};flex-shrink: 0;"></div>
-                                <span>${event.grupo} - ${event.title}</span>
+                                <span>${event.title}</span>
                             </div>
                         `);
                     });
@@ -200,24 +261,8 @@ get_header();
 
             render(currentMonth, currentYear);
 
-            function toggleActiveButton(button) {
-                // Remove a classe 'active' de ambos os botões
-                $('#prev-month, #next-month').removeClass('active');
-                // Adiciona a classe 'active' ao botão clicado
-                $(button).addClass('active');
-
-                // Alterna as cores dos botões
-                if (button.id === "prev-month") {
-                    $("#prev-month").css("background-color", "#FFF4DA");
-                    $("#next-month").css("background-color", "white");
-                } else {
-                    $("#next-month").css("background-color", "#FFF4DA");
-                    $("#prev-month").css("background-color", "white");
-                }
-            }
-
             $("#prev-month").on("click", function() {
-                toggleActiveButton(this);
+                toggleActiveButton(this, 'month');
 
                 if (currentMonth === 0) {
                     currentYear--;
@@ -229,7 +274,7 @@ get_header();
             });
 
             $("#next-month").on("click", function() {
-                toggleActiveButton(this);
+                toggleActiveButton(this, 'month');
 
                 if (currentMonth === 11) {
                     currentYear++;
@@ -239,6 +284,23 @@ get_header();
                 }
                 render(currentMonth, currentYear);
             });
+        }
+
+        // Função para alternar os botões entre ativo e inativo
+        function toggleActiveButton(button, group) {
+            // Remove a classe 'active' de ambos os botões do grupo especificado
+            $(`#prev-${group}, #next-${group}`).removeClass('active');
+            // Adiciona a classe 'active' ao botão clicado
+            $(button).addClass('active');
+
+            // Alterna as cores dos botões
+            if (button.id === `prev-${group}`) {
+                $(`#prev-${group}`).css("background-color", "#FFF4DA");
+                $(`#next-${group}`).css("background-color", "white");
+            } else {
+                $(`#next-${group}`).css("background-color", "#FFF4DA");
+                $(`#prev-${group}`).css("background-color", "white");
+            }
         }
 
         // Load initial events and calendar data
@@ -261,3 +323,5 @@ get_header();
 <!-- / PAGE CONTENT -->
 
 <?php get_footer(); ?>
+</body>
+</html>
