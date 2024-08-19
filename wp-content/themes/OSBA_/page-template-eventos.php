@@ -19,24 +19,6 @@
             text-align: center;
         }
 
-        /* #calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #ffffff;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        .ev-calendar {
-            border: 0px;
-            border-radius: 8px;
-            background-color: #fff;
-            box-shadow: 0 0px 8px rgba(-0.5, 0, 0, 0.5);
-            padding: 15px;
-            height: auto;
-        } */
-
         .container {
             display: flex;
             gap: 20px;
@@ -49,6 +31,28 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            overflow-y: auto; /* Permite rolagem */
+            max-height: 600px; /* Altura fixa para a área de eventos */
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #888 #e0e0e0; /* Firefox */
+        }
+
+
+
+        /* Estilo da barra de rolagem no Webkit (Chrome, Safari) */
+        .ev-main-content::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .ev-main-content::-webkit-scrollbar-track {
+            background: #e0e0e0; /* Cor do trilho */
+            border-radius: 6px;
+        }
+
+        .ev-main-content::-webkit-scrollbar-thumb {
+            background-color: #888; /* Cor do "thumb" da barra */
+            border-radius: 6px;
+            border: 3px solid #e0e0e0; /* Cria um efeito de trilho ao redor */
         }
 
         .ev-calendar-column {
@@ -56,6 +60,8 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            position: sticky;
+            top: 0; /* Mantém o calendário fixo ao rolar */
         }
     </style>
 </head>
@@ -122,7 +128,6 @@
         </div>
     </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     jQuery(document).ready(function($) {
