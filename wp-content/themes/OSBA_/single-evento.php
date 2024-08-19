@@ -192,19 +192,46 @@ $template_directory_uri = get_template_directory_uri();
 
         #calendar-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Alinha o título à esquerda e os botões à direita */
             align-items: center;
             background-color: #ffffff;
             padding: 10px;
             font-size: 22px;
-            width: 100%;
-            max-width: 297.49px;
-            height: 26px;
-            margin-bottom: 5%;
-            padding-top: 38px;
+            width: 100%; /* Garante que o cabeçalho ocupe toda a largura do contêiner */
+            box-sizing: border-box;
+            overflow: visible; /* Garante que o conteúdo dentro do cabeçalho não seja cortado */
             text-transform: uppercase;
-            margin-left: auto;
-            margin-right: auto;
+        }
+
+        #calendar-navigation {
+            display: flex;
+            align-items: center;
+            margin-right: 0; /* Remove qualquer margem adicional para evitar cortes */
+            position: relative; /* Mantém os botões de navegação dentro do contêiner */
+        }
+
+        #calendar-navigation span {
+            cursor: pointer;
+            font-size: 1.2em;
+            user-select: none;
+            width: 25px;
+            height: 25px;
+            line-height: 1.8;
+            text-align: center;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            margin-left: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            color: #333;
+            font-weight: bold;
+            box-sizing: border-box; /* Garante que a borda do botão seja considerada no tamanho total */
+        }
+
+        #calendar-navigation span:hover {
+            background-color: #f0f0f0;
         }
 
         .ev-legend {
