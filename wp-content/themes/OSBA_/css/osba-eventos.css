@@ -89,6 +89,7 @@ th {
     margin-bottom: 20px;
     height: 365px; /* Ajusta a altura para ocupar toda a coluna */
     width: 342px; /* Ajusta a largura para ocupar toda a coluna */
+
 }
 
 /* Estilos para o calendário e a legenda na terceira coluna */
@@ -273,6 +274,7 @@ th {
     text-align: center;
 }
 
+
 #calendar-navigation {
     right: 10px;
     display: flex;
@@ -297,7 +299,7 @@ th {
     color: #333;
     font-weight: bold;
 }
-o que observei é que o botao de navegação do calendario em certas telas e na mudança de alguns meses ele se afasta demais do mês
+
 #calendar-navigation span:hover {
     background-color: #f0f0f0;
 }
@@ -330,6 +332,7 @@ o que observei é que o botao de navegação do calendario em certas telas e na 
             0 4px 6px -2px rgba(0, 0, 0, 0.2);   /* Sombra na parte inferior */
     height: auto;
     width: 342px;
+
 }
 
 
@@ -340,8 +343,10 @@ o que observei é que o botao de navegação do calendario em certas telas e na 
     background-color: #ffffff;
     padding: 10px;
     font-size: 16px;
-    max-width: 297.49px; /* Alterado de width para max-width */
+    /*max-width: 297.49px; !* Alterado de width para max-width *!*/
     height: auto; /* Deixe a altura ser definida automaticamente */
+    width: 304px;
+
 
     box-sizing: border-box;
     overflow: hidden; /* Evita cortes de conteúdo */
@@ -353,6 +358,7 @@ o que observei é que o botao de navegação do calendario em certas telas e na 
     font-family: "Nocturno Display Bold";
     font-size: 32px;
     text-transform: uppercase;
+
 }
 
 
@@ -367,6 +373,7 @@ tr {
     font-size: 1.5em;
     font-weight: bold;
     text-transform: uppercase;
+    /*margin-left: -10px;*/
 }
 
 #prev-month, #next-month {

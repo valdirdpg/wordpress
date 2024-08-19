@@ -71,13 +71,13 @@ $template_directory_uri = get_template_directory_uri();
 
         .event-title-overlay {
             position: absolute;
-            top: 200px;
-            left: 135px;
-            font-family: 'Nocturno Display Pro';
+            font-family: "Nocturno Display Bold";
             font-weight: bold;
             font-size: 32px;
             color: white;
-            z-index: 10;
+            top: 33vh;
+            left: 138px;
+            z-index: 100; /* Aumente o valor para garantir visibilidade */
         }
 
         .event-description {

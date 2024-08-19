@@ -37,6 +37,9 @@
             scrollbar-color: #888 #e0e0e0; /* Firefox */
         }
 
+        .ev-calendar {
+            margin-top: 1px;
+        }
 
 
         /* Estilo da barra de rolagem no Webkit (Chrome, Safari) */
@@ -63,15 +66,76 @@
             position: sticky;
             top: 0; /* Mantém o calendário fixo ao rolar */
         }
+
+        .camaratas-section {
+            background-color: #f9f5e6;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Raleway', sans-serif; /* Caso você queira usar Raleway aqui */
+        }
+
+        .camarata {
+            font-family: 'Nocturno Display Bold', serif; /* Fonte personalizada */
+            font-size: 24px;
+        }
+
+        .camarata-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+            font-family: Raleway;
+        }
+
+        .camarata-date, .day, .camarata-time {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            padding: 10px;
+            border-radius: 0px;
+            width: 75px;
+            /*font-size: 16px;*/
+            font-family: 'Nocturno Display Bold', serif; /* Fonte personalizada */
+        }
+
+        .day {
+            background-color:  #0A246A;
+            height: 24px;
+            font-size: 16px;
+        }
+
+        .camarata-time {
+            background-color: #b6b6b6;
+            height: 22px;
+            font-size: 16px;
+        }
+
+        .camarata-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 900;
+             /* Fonte personalizada */
+        }
+
+        .camarata-location {
+            font-size: 16px;
+            color: #666;
+            font-family: 'Raleway'; /* Mantenha Raleway aqui se for o desejado */
+        }
+
     </style>
 </head>
 <body>
 
 <?php
-    /*
-    Template Name: EVENTOS
-    */
-    get_header();
+/*
+Template Name: EVENTOS
+*/
+get_header();
 ?>
 
 <div id="mainHeader" style="width: 2000px;"></div>
@@ -125,9 +189,46 @@
             <div class="ev-legend">
                 <div id="event-legend"></div>
             </div>
+
+            <!-- Camaratas Section -->
+            <div class="camaratas-section">
+                <p class="camarata">Camaratas</p>
+                <?php
+                $camarata = get_posts(array(
+                    'post_type' => 'camarata',
+                    'posts_per_page' => -1,
+                ));
+
+                if ($camarata) {
+                    foreach ($camarata as $camaratas) {
+                        $titulo = get_field('titulo', $camaratas->ID);
+                        $local = get_field('local', $camaratas->ID);
+                        $date = get_field('data', $camaratas->ID);
+                        $horario = get_field('horario', $camaratas->ID);
+//                        $date = new DateTime($data);
+                        ?>
+                        <div class="camarata-item">
+                            <div class="camarata-date">
+                                <span class="day"><?php echo date('d/m', strtotime(get_field('data'))); ?></span>
+                                <span class="camarata-time"><?php echo esc_html($horario); ?></span>
+                            </div>
+                            <div class="camarata-details">
+                                <div class="camarata-title"><?php echo esc_html($titulo); ?></div>
+                                <div class="camarata-location">Local: <?php echo esc_html($local); ?></div>
+
+                            </div>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    echo '<p>Nenhuma camarata encontrada.</p>';
+                }
+                ?>
+            </div>
         </div>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     jQuery(document).ready(function($) {
