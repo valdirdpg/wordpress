@@ -247,6 +247,20 @@ body {
   border: none;
 }
 
+.navbar-nav .nav-item-blog .nav-link {
+  background-color: #13293A;
+  color: #fff;
+  border: none;
+}
+
+.navbar-nav .nav-item-blog.active .nav-link, .navbar-nav .nav-item-blog.active .nav-link:hover, .navbar-nav .nav-item-blog.active .nav-link:focus,
+.navbar-nav .nav-item-blog .nav-link:hover,
+.navbar-nav .nav-item-blog .nav-link:focus {
+  background-color: #6665FE;
+  color: #fff;
+  border: none;
+}
+
 .navbar-nav-social .nav-item .nav-link {
   border: none;
 }

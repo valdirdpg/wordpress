@@ -652,7 +652,16 @@ function load_events() {
                         <div class="ev-horizontal-line" style="background-color: <?php echo $banner_color; ?>"></div>
                     </div>
                     <div class="ev-events-body ev-item-body">
-                        <h2 class="ev-title ev-banner-title"><?php the_title(); ?></h2>
+                        <p class="ev-title ev-banner-title"><?php
+                            $title = get_the_title();
+                            if (strlen($title) > 40) {
+                                echo substr($title, 0, 40) . '...';
+                            } else {
+                                echo $title;
+                            }
+                            ?>
+                        </p>
+                        </p>
                         <div class="ev-content"><?php echo get_field('resumo'); ?></div>
                         <a href="<?php the_permalink(); ?>" class="ev-btn ev-btn-outline-secondary">saiba mais</a>
                         <?php if ($tipo_evento == 'Gratuito'){ ?>
@@ -812,7 +821,15 @@ function load_events_year($year = null) {
                         <div class="ev-horizontal-line" style="background-color: <?php echo $banner_color; ?>"></div>
                     </div>
                     <div class="ev-events-body ev-item-body">
-                        <h2 class="ev-title ev-banner-title"><?php the_title(); ?></h2>
+                        <p class="ev-title ev-banner-title"><?php
+                            $title = get_the_title();
+                            if (strlen($title) > 40) {
+                                echo substr($title, 0, 40) . '...';
+                            } else {
+                                echo $title;
+                            }
+                            ?>
+                        </p>
                         <div class="ev-content"><?php echo get_field('resumo'); ?></div>
                         <a href="<?php the_permalink(); ?>" class="ev-btn ev-btn-outline-secondary">saiba mais</a>
                         <?php

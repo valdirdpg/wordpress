@@ -106,6 +106,8 @@ th {
     padding: 15px;
     margin-top: -10px; /* Espaço entre o calendário e a legenda */
     width: 100%; /* Mesma largura do calendário */
+    font-family: Raleway;
+    font-weight: normal;
 }
 
 /* Estilos para a tabela do calendário */
@@ -402,7 +404,7 @@ tr {
     font-weight: bold;
 }
 
-.ev-pagination {
+.www.oi.com.bragination {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -491,7 +493,7 @@ body, html {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     position: relative;
     width: 339.25px;
-    height: 400px;
+    height: 405px;
 }
 
 .ev-custom-img {
@@ -509,6 +511,7 @@ body, html {
 
 .ev-item {
     width: 339px;
+    /*height: 420px;*/
 }
 
 .ev-banner {
@@ -640,6 +643,11 @@ body, html {
     text-transform: uppercase;
     font-size: 24px;
     font-family: "Nocturno Display Bold";
+    line-height: 1.1;
+    /*width: 250px; !* Ajuste a largura conforme necessário *!*/
+    /*overflow: hidden;*/
+    /*!*white-space: nowrap;*!*/
+    /*text-overflow: ellipsis;*/
 }
 
 .ev-content {
@@ -648,7 +656,7 @@ body, html {
     color: #000;
     font-weight: normal;
     font-family: Raleway;
-    line-height: 1.8;
+    line-height: 1.5;
 }
 
 .ev-todos-os-eventos {
