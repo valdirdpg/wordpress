@@ -38,7 +38,7 @@
         }
 
         .ev-calendar {
-            margin-top: 1px;
+            margin-top: auto;
         }
 
 

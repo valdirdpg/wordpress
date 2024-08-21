@@ -27,7 +27,7 @@ $template_directory_uri = get_template_directory_uri();
     <style>
         body, html {
             font-family: 'Raleway', Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #fff;
             margin: 0;
             padding: 0;
             width: 100%;
@@ -783,7 +783,7 @@ $template_directory_uri = get_template_directory_uri();
 
                     <!-- Botão "VER TODOS OS EVENTOS" -->
                     <div class="ev-todos-os-eventos">
-                        <a href="<?php echo get_post_type_archive_link('evento'); ?>/eventos" class="ev-btn ev-btn-eventos">VER TODOS OS EVENTOS</a>
+                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>eventos" class="ev-btn ev-btn-eventos">VER TODOS OS EVENTOS</a>
                     </div>
                 </div>
 

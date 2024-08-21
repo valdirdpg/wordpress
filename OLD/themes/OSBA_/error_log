@@ -1,4 +1,0 @@
-[13-Apr-2024 00:17:35 America/Fortaleza] PHP Fatal error:  Uncaught Error: Call to undefined function get_header() in /home1/osbaar29/public_html/wp-content/themes/OSBA_/index.php:17
-Stack trace:
-#0 {main}
-  thrown in /home1/osbaar29/public_html/wp-content/themes/OSBA_/index.php on line 17

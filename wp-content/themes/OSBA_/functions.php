@@ -661,8 +661,26 @@ function load_events() {
                             }
                             ?>
                         </p>
-                        </p>
-                        <div class="ev-content"><?php echo get_field('resumo'); ?></div>
+
+                        <div class="ev-content">
+                            <?php
+                            $resumo = get_field('resumo');
+                            $char_limit = 110; // Define o limite de caracteres
+
+                            // Verifica se o resumo não está vazio
+                            if (!empty($resumo)) {
+                                // Verifica se o número de caracteres excede o limite
+                                if (strlen($resumo) > $char_limit) {
+                                    // Trunca o resumo ao número limite de caracteres e adiciona "..."
+                                    $resumo_truncado = substr($resumo, 0, $char_limit) . '...';
+                                    echo $resumo_truncado;
+                                } else {
+                                    // Caso contrário, exibe o resumo completo
+                                    echo $resumo;
+                                }
+                            }
+                            ?>
+                        </div>
                         <a href="<?php the_permalink(); ?>" class="ev-btn ev-btn-outline-secondary">saiba mais</a>
                         <?php if ($tipo_evento == 'Gratuito'){ ?>
                              <a href="<?php the_permalink(); ?>" class="ev-btn ev-btn-primary-grt">GRATUITO</a>
@@ -830,7 +848,27 @@ function load_events_year($year = null) {
                             }
                             ?>
                         </p>
-                        <div class="ev-content"><?php echo get_field('resumo'); ?></div>
+                        <div class="ev-content">
+                            <?php
+                                $resumo = get_field('resumo');
+                                $char_limit = 110; // Define o limite de caracteres
+
+                                // Verifica se o resumo não está vazio
+                                if (!empty($resumo)) {
+                                    // Verifica se o número de caracteres excede o limite
+                                    if (strlen($resumo) > $char_limit) {
+                                        // Trunca o resumo ao número limite de caracteres e adiciona "..."
+                                        $resumo_truncado = substr($resumo, 0, $char_limit) . '...';
+                                        echo $resumo_truncado;
+                                    } else {
+                                        // Caso contrário, exibe o resumo completo
+                                        echo $resumo;
+                                    }
+                                }
+                            ?>
+                        </div>
+
+
                         <a href="<?php the_permalink(); ?>" class="ev-btn ev-btn-outline-secondary">saiba mais</a>
                         <?php
                         if ($tipo_evento == 'Gratuito') {

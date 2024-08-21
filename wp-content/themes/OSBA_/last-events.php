@@ -7,7 +7,16 @@
     <title>Eventos</title>
     <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/style.css">
     <style>
-
+        .ev-calendar {
+            border: 0;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: -4px 0 6px -2px rgba(0,0,0,.2),4px 0 6px -2px rgba(0,0,0,.2),0 4px 6px -2px rgba(0,0,0,.2);
+            height: auto;
+            width: 342px;
+            margin-top:85px;
+            margin-bottom: 25px;
+        }
     </style>
 </head>
 <body>
@@ -23,7 +32,7 @@
             <button class="ev-slider-control" id="next-events">&gt;</button>
         </div>
         <div class="ev-todos-os-eventos">
-            <a href="<?php echo get_post_type_archive_link('evento'); ?>/eventos" class="ev-btn ev-btn-eventos">VER TODOS OS EVENTOS</a>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>eventos" class="ev-btn ev-btn-eventos">VER TODOS OS EVENTOS</a>
         </div>
     </div>
 
