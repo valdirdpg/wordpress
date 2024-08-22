@@ -901,11 +901,71 @@ function load_events_year($year = null) {
     return $response; // Retorna o conteúdo se não for AJAX
 }
 
-
-
 // Conecta a função ao AJAX
 add_action('wp_ajax_load_events_year', 'load_events_year');
 add_action('wp_ajax_nopriv_load_events_year', 'load_events_year');
+
+
+function load_cards_callback() {
+    $page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $posts_per_page = 3;
+    $offset = ($page - 1) * $posts_per_page;
+
+    $args = array(
+        'post_type' => 'blog',
+        'posts_per_page' => $posts_per_page,
+        'offset' => $offset,
+    );
+
+    $cards_query = new WP_Query($args);
+
+    if ($cards_query->have_posts()) :
+        while ($cards_query->have_posts()) : $cards_query->the_post();
+            $imagem_de_destaque = get_field('imagem_de_destaque');
+            if (is_array($imagem_de_destaque)) {
+                $imagem_url = $imagem_de_destaque['url'];
+            } else {
+                $imagem_url = $imagem_de_destaque;
+            }
+            $categoria = get_field('categorias');
+            $resumo = get_field('resumo');
+
+            $category_class = '';
+            if ($categoria == 'Temporadas') {
+                $category_class = 'category-temporada';
+            } elseif ($categoria == 'Entrevistas') {
+                $category_class = 'category-entrevistas';
+            } elseif ($categoria == 'Séries') {
+                $category_class = 'category-series';
+            } elseif ($categoria == 'Concertos') {
+                $category_class = 'category-concertos';
+            }
+            ?>
+            <div class="card <?php echo esc_attr($category_class); ?>">
+                <a href="<?php the_permalink(); ?>" class="card-link-wrapper">
+                    <div class="card-image" style="background-image: url('<?php echo esc_url($imagem_url); ?>');">
+                        <?php if ($categoria): ?>
+                            <span class="card-category"><?php echo esc_html($categoria); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title"><?php the_title(); ?></h3>
+                        <p class="card-excerpt"><?php echo esc_html($resumo); ?></p>
+                    </div>
+                </a>
+            </div>
+        <?php
+        endwhile;
+        wp_reset_postdata();
+    else :
+        echo '<p>Nenhum post encontrado.</p>';
+    endif;
+
+    wp_die();
+}
+add_action('wp_ajax_load_cards', 'load_cards_callback');
+add_action('wp_ajax_nopriv_load_cards', 'load_cards_callback');
+
 
 //============FIM============//
 function load_all_events() {
@@ -940,6 +1000,38 @@ function load_all_events() {
 }
 add_action('wp_ajax_load_all_events', 'load_all_events');
 add_action('wp_ajax_nopriv_load_all_events', 'load_all_events');
+
+// Fuctions do Blog Osba
+
+function custom_blog_styles() {
+    // Verifica se estamos na página de arquivo do tipo de post 'blog' ou em uma página singular do tipo 'blog'
+    if (is_post_type_archive('blog') || is_singular('blog')) {
+        wp_enqueue_style('custom-blog-styles', get_template_directory_uri() . '/css/style-blog.css');
+    }
+}
+add_action('wp_enqueue_scripts', 'custom_blog_styles');
+
+
+
+function enqueue_custom_scripts()
+{
+    // Swiper.js CSS
+    wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css');
+
+    // Seu arquivo CSS personalizado
+    wp_enqueue_style('custom-style', get_stylesheet_uri());
+
+    // Swiper.js JS
+    wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js', array(), null, true);
+
+    // Seu arquivo JS personalizado
+    wp_enqueue_script('custom-js', get_template_directory_uri() . '/assets/js/osba-blog.js', array('swiper-js'), null, true);
+}
+
+add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
+
+
+//----------FIM------------
 
 
 function twentytwentyone_customize_controls_enqueue_scripts() {

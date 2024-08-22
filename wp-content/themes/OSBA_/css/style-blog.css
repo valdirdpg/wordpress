@@ -1,0 +1,287 @@
+/* Estilos Gerais */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Slider Styles */
+.main-slider {
+    width: 1940px; /* Define a largura fixa de 1940px */
+    height: 400px; /* Define a altura fixa de 400px */
+    position: relative;
+    margin: 0 auto; /* Centraliza o slider na página */
+    border-radius: 0px;
+    overflow: hidden;
+    margin-left: -380px;
+}
+
+.swiper-wrapper {
+    width: 100%; /* Garante que o contêiner interno ocupe toda a largura do slider */
+    display: flex;
+}
+
+.swiper-slide {
+    width: 100%; /* Cada slide ocupa toda a largura do contêiner */
+    height: 400px; /* Garante que o slide ocupe toda a altura do contêiner principal */
+    background-size: cover; /* Faz a imagem cobrir todo o contêiner */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.slide-content {
+    width: 100%;
+    height: 100%; /* Garante que o conteúdo do slide ocupe toda a altura */
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Posicionamento Independente */
+.slide-category {
+    position: absolute;
+    top: 190px; /* Y = 294 */
+    left: 135px; /* X = 135 */
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.05); /* Leve fundo transparente */
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff; /* Texto branco */
+    border-color: #fff;
+    border: solid 0.8px;
+    z-index: 10;
+    font-family: Raleway;
+}
+
+.slide-title {
+    position: absolute;
+    top: 250px; /* Y = 352 */
+    left: 135px; /* X = 135 */
+    width: 446px;
+    font-size: 32px;
+    line-height: 1.0;
+    color: #fff; /* Texto branco */
+    font-family: "Nocturno Display Bold";
+    z-index: 10;
+}
+
+/* Swiper Pagination */
+.swiper-pagination-bullet {
+    background: #ffffff33 !important;
+    width: 15px !important;
+    height: 15px !important;
+    border: solid 0.8px;
+    border-color: #fff;
+    opacity: 1 !important;
+    border-radius: 50%;
+}
+
+.swiper-pagination-bullet-active {
+    background: #DA35CE !important;
+}
+
+/* Container das colunas */
+.cards-container {
+    display: flex;
+    justify-content: space-between; /* Espaço entre os cards */
+    max-width: 1140px; /* Define a largura máxima do container */
+    margin: 0 auto; /* Centraliza o container na tela */
+    padding: 20px 0; /* Adiciona espaço ao redor do container */
+    border-radius: 8px;
+    margin-top: 40px;
+    transition: transform 0.5s ease; /* Transição suave ao deslizar */
+    will-change: transform;
+}
+
+.cards-container {
+    display: flex;
+
+}
+
+/* Container das Colunas */
+.cards-container-wrapper {
+    position: relative; /* Necessário para posicionar os botões dentro deste contêiner */
+    max-width: 1200px; /* Largura máxima do container, que comporta 3 cards de 370px cada */
+    margin: 0 auto;
+    overflow: hidden; /* Esconde o overflow dos cards */
+}
+
+/* Estilo dos Cards */
+.card {
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    width: 370px;
+    height: 450px; /* Define a altura dos cards */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0; /* Remove o espaço entre as linhas de cards */
+    transition: transform 0.3s;
+    border-radius: 8px !important;
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Efeito de hover para os cards */
+}
+
+/* Estilo da Imagem do Card */
+.card-image {
+    width: 100%;
+    height: 200px; /* Altura da imagem dentro do card */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Estilo padrão da linha */
+.card-image::after {
+    content: '';
+    position: absolute;
+    top: 200px;
+    left: 0;
+    width: 100%;
+    height: 8px; /* Espessura da linha */
+}
+
+/* Linha para a categoria Temporada */
+.category-temporada .card-image::after {
+    background-color: #BE4E29; /* Cor para Temporada */
+}
+
+/* Linha para a categoria Entrevistas */
+.category-entrevistas .card-image::after {
+    background-color: #5FB085; /* Cor para Entrevistas */
+}
+
+/* Linha para a categoria Series */
+.category-series .card-image::after {
+    background-color: #BE7229; /* Cor para Series */
+}
+
+/* Linha para a categoria Concertos */
+.category-concertos .card-image::after {
+    background-color: #595959; /* Cor para Concertos */
+}
+
+/* Categoria sobre a Imagem */
+.card-category {
+    position: absolute;
+    top: 140px;
+    left: 28px;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.05); /* Leve fundo transparente */
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff; /* Texto branco */
+    border-color: #fff;
+    border: solid 0.8px;
+    z-index: 10;
+    font-family: Raleway;
+}
+
+/* Conteúdo do Card */
+.card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Título do Card */
+.card-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #333;
+    flex: 1;
+}
+
+/* Trecho do Card */
+.card-excerpt {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    flex: 1;
+    font-family: Raleway;
+}
+
+/* Link do Card */
+.card-link {
+    align-self: flex-start;
+    padding: 10px 20px;
+    background: #ff5a5f;
+    color: #fff;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.card-link:hover {
+    background: #e14e50;
+}
+
+/* Botões de Navegação */
+
+/* Botões de Navegação */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1140px;
+    margin: 20px auto;
+}
+
+#prev-cards {
+    margin-top: -350px;
+    margin-left: -60px;
+}
+
+#next-cards {
+    margin-top: -350px;
+    margin-right: -60px;
+}
+
+
+.circular-btn {
+    background-color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    color: #000;
+    cursor: pointer;
+    border: none;
+}
+
+.circular-btn.active {
+    background-color: #FFF4DA;
+}
+/* Responsividade */
+@media (max-width: 991px) {
+    .cards-container {
+        flex-direction: column; /* Em telas menores, os cards são empilhados */
+        align-items: center;
+    }
+
+    .card {
+        width: 100%; /* Os cards ocupam toda a largura do container em telas pequenas */
+        max-width: 370px; /* Mantém a largura máxima de 370px */
+        margin-bottom: 20px; /* Adiciona espaço entre os cards ao empilhá-los */
+    }
+}

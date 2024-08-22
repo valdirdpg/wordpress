@@ -34,6 +34,6 @@ $config = array (
   ),
   'output_dir' => '/var/www/html/wp-content/cache/sgo-cache/',
   'logged_in_cache' => 0,
-  'cache_secret_key' => '3e85fa8bb9dc3c2124e7633b42fdb435',
+  'cache_secret_key' => '349b83d23417cffc176bb72624c24364',
   'logged_in_cookie' => 'wordpress_logged_in_01025e1be84bb6ba01523b4201216c0d',
 );

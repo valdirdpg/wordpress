@@ -112,7 +112,9 @@
 						<a class="nav-link" href="<?php echo esc_url( home_url( '/' ) ); ?>apoie-a-osba">Apoie</a>
 					</li>
                     <li class="nav-item nav-item-blog <?php if ( is_page('blog') ) echo "active"; ?>">
-                        <a class="nav-link" href="<?php echo esc_url( home_url( '/' ) ); ?>blog">Blog</a>
+                        <a class="nav-link" href="<?php echo get_post_type_archive_link('blog'); ?>">Blogs</a>
+
+<!--                        <a class="nav-link" href="--><?php //echo esc_url( home_url( '/' ) ); ?><!--blog">Blog</a>-->
                     </li>
 				</ul>
 				<ul class="navbar-nav navbar-nav-social d-none d-md-flex">
