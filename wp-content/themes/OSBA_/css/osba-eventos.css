@@ -29,6 +29,7 @@
     text-align: center;
     font-weight: normal;
     color: black;
+
 }
 
 .content-wrapper {
@@ -239,12 +240,7 @@ th {
     margin-right: 10px;
 }
 
-.color-red { background-color: #D9534F; }
-.color-orange { background-color: #F0AD4E; }
-.color-pink { background-color: #D2B4DE; }
-.color-purple { background-color: #D39DDB; }
-.color-green { background-color: #5CB85C; }
-.color-black { background-color: #292B2C; }
+
 
 #calendar {
     width: 100%;
@@ -523,19 +519,19 @@ body, html {
 }
 
 .ev-banner-date {
-    background: #da35ce;
+    font-size: 24px;
     color: white;
     padding: 10px 15px;
-    font-family: "Nocturno Display Bold", Sans-serif;
+    font-family: "Nocturno Display Bold";
     font-weight: bold;
     height: 60%;
 }
 
 .ev-banner-time {
-    background: #bc1bb0;
+    font-size: 20px;
     color: white;
     padding: 5px 15px;
-    font-family: "Nocturno Display Bold", Sans-serif;
+    font-family: "Nocturno Display Bold";
     font-weight: bold;
     height: 40%;
 }
