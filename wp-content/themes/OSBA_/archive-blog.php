@@ -35,9 +35,9 @@ get_header(); ?>
                         <div class="slide-content">
                             <div class="overlay"></div>
                             <?php if ($categoria): ?>
-                                <span class="slide-category"><?php echo esc_html($categoria); ?></span>
+                                <span class="slide-category" style="margin-left: 250px; "><?php echo esc_html($categoria); ?></span>
                             <?php endif; ?>
-                            <p class="slide-title"><?php the_title(); ?></p>
+                            <p class="slide-title" style="margin-left: 250px; "><?php the_title(); ?></p>
                         </div>
                     </div>
                 <?php

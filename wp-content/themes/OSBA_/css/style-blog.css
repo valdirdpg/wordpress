@@ -6,32 +6,57 @@
 }
 
 /* Slider Styles */
-.main-slider {
-    width: 1940px; /* Define a largura fixa de 1940px */
-    height: 400px; /* Define a altura fixa de 400px */
+.post-image-container {
+    width: 1940px;
+    height: 400px;
     position: relative;
-    margin: 0 auto; /* Centraliza o slider na página */
+    margin: 0 auto;
+    border-radius: 0px;
+    overflow: hidden;
+    margin-left: -380px;
+
+}
+
+.swiper-wrapper {
+    width: 100%;
+    display: flex;
+}
+
+.post-image {
+    width: 100%;
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    left: 200px;
+}
+
+.main-slider {
+    width: 1940px;
+    height: 400px;
+    position: relative;
+    margin: 0 auto;
     border-radius: 0px;
     overflow: hidden;
     margin-left: -380px;
 }
 
 .swiper-wrapper {
-    width: 100%; /* Garante que o contêiner interno ocupe toda a largura do slider */
+    width: 100%;
     display: flex;
 }
 
 .swiper-slide {
-    width: 100%; /* Cada slide ocupa toda a largura do contêiner */
-    height: 400px; /* Garante que o slide ocupe toda a altura do contêiner principal */
-    background-size: cover; /* Faz a imagem cobrir todo o contêiner */
+    width: 100%;
+    height: 400px;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .slide-content {
     width: 100%;
-    height: 100%; /* Garante que o conteúdo do slide ocupe toda a altura */
+    height: 100%;
     position: relative;
 }
 
@@ -47,30 +72,113 @@
 /* Posicionamento Independente */
 .slide-category {
     position: absolute;
-    top: 190px; /* Y = 294 */
-    left: 135px; /* X = 135 */
+    top: 190px;
+    left: 135px;
     display: inline-block;
-    background: rgba(255, 255, 255, 0.05); /* Leve fundo transparente */
+    background: rgba(255, 255, 255, 0.05);
     padding: 5px 15px;
     border-radius: 20px;
     font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #fff; /* Texto branco */
+    color: #fff;
     border-color: #fff;
     border: solid 0.8px;
     z-index: 10;
     font-family: Raleway;
 }
 
+.post-categoria {
+    position: absolute;
+    margin-top: -50px;
+    margin-bottom: -90px;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000000;
+    border-color: #000000;
+    border: solid 0.8px;
+    z-index: 10;
+    font-family: Raleway;
+}
+
+.post-title {
+    font-size: 36px;
+    font-family: "Nocturno Display Bold";
+    margin-top: 120px;
+    margin-bottom: 40px;
+}
+
+/* Ajuste no .post-meta para organizar as linhas */
+.post-meta {
+    margin-bottom: 10px;
+    display: block; /* Faz com que as linhas internas sejam organizadas verticalmente */
+    font-size: 14px;
+    font-family: Raleway;
+    line-height: 1.8;
+}
+
+.post-meta .post-meta-first-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 5px; /* Espaço abaixo da primeira linha */
+}
+
+.post-meta .post-meta-second-line {
+    display: flex;
+    justify-content: space-between; /* Distribui o conteúdo nas extremidades */
+    align-items: center;
+    gap: 10px; /* Espaço entre os elementos da segunda linha */
+    flex-wrap: wrap; /* Permite que os elementos quebrem linha em telas pequenas */
+}
+
+/* Ajuste no social-share-inline */
+.social-share-inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto; /* Move os ícones para a margem direita */
+}
+
+.social-icon i {
+    font-size: 28px; /* Tamanho dos ícones */
+    transition: transform 0.3s ease;
+    color: #000000;
+
+}
+
+.social-icon i:hover {
+    transform: scale(1.2);
+}
+
+.post-content {
+    font-size: 16px;
+    font-family: Raleway;
+    line-height: 2;
+    margin-bottom: 60px;
+}
+
+.post-leia-tambem {
+    font-size: 32px;
+    font-family: "Nocturno Display Bold";
+    font-weight: 900;
+    margin-bottom: -10px;
+
+}
+
 .slide-title {
     position: absolute;
-    top: 250px; /* Y = 352 */
-    left: 135px; /* X = 135 */
+    top: 250px;
+    left: 135px;
     width: 446px;
     font-size: 32px;
     line-height: 1.0;
-    color: #fff; /* Texto branco */
+    color: #fff;
     font-family: "Nocturno Display Bold";
     z-index: 10;
 }
@@ -93,27 +201,30 @@
 /* Container das colunas */
 .cards-container {
     display: flex;
-    justify-content: space-between; /* Espaço entre os cards */
-    max-width: 1140px; /* Define a largura máxima do container */
-    margin: 0 auto; /* Centraliza o container na tela */
-    padding: 20px 0; /* Adiciona espaço ao redor do container */
+    justify-content: space-between;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 20px 0;
     border-radius: 8px;
     margin-top: 40px;
-    transition: transform 0.5s ease; /* Transição suave ao deslizar */
+    transition: transform 0.5s ease;
     will-change: transform;
 }
 
 .cards-container {
     display: flex;
+}
 
+.post-author {
+    display: block;
 }
 
 /* Container das Colunas */
 .cards-container-wrapper {
-    position: relative; /* Necessário para posicionar os botões dentro deste contêiner */
-    max-width: 1200px; /* Largura máxima do container, que comporta 3 cards de 370px cada */
+    position: relative;
+    max-width: 1200px;
     margin: 0 auto;
-    overflow: hidden; /* Esconde o overflow dos cards */
+    overflow: hidden;
 }
 
 /* Estilo dos Cards */
@@ -122,74 +233,77 @@
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     width: 370px;
-    height: 450px; /* Define a altura dos cards */
+    height: 450px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 0; /* Remove o espaço entre as linhas de cards */
+    margin-bottom: 0;
     transition: transform 0.3s;
     border-radius: 8px !important;
 }
 
 .card:hover {
-    transform: translateY(-10px); /* Efeito de hover para os cards */
+    transform: translateY(-10px);
 }
 
 /* Estilo da Imagem do Card */
 .card-image {
     width: 100%;
-    height: 200px; /* Altura da imagem dentro do card */
+    height: 230px;
     background-size: cover;
     background-position: center;
     position: relative;
+
 }
 
 /* Estilo padrão da linha */
 .card-image::after {
     content: '';
     position: absolute;
-    top: 200px;
+    top: 230px;
     left: 0;
     width: 100%;
-    height: 8px; /* Espessura da linha */
+    height: 8px;
 }
 
 /* Linha para a categoria Temporada */
 .category-temporada .card-image::after {
-    background-color: #BE4E29; /* Cor para Temporada */
+    background-color: #BE4E29;
 }
 
 /* Linha para a categoria Entrevistas */
 .category-entrevistas .card-image::after {
-    background-color: #5FB085; /* Cor para Entrevistas */
+    background-color: #5FB085;
 }
 
 /* Linha para a categoria Series */
 .category-series .card-image::after {
-    background-color: #BE7229; /* Cor para Series */
+    background-color: #BE7229;
 }
 
 /* Linha para a categoria Concertos */
 .category-concertos .card-image::after {
-    background-color: #595959; /* Cor para Concertos */
+    background-color: #595959;
 }
 
 /* Categoria sobre a Imagem */
 .card-category {
     position: absolute;
-    top: 140px;
+    top: 170px;
     left: 28px;
     display: inline-block;
-    background: rgba(255, 255, 255, 0.05); /* Leve fundo transparente */
+    background: rgba(255, 255, 255, 0.05);
     padding: 5px 15px;
     border-radius: 20px;
     font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #fff; /* Texto branco */
+    color: #fff;
     border-color: #fff;
     border: solid 0.8px;
     z-index: 10;
     font-family: Raleway;
+    min-width: 132px;
+    text-align: center;
 }
 
 /* Conteúdo do Card */
@@ -233,7 +347,20 @@
     background: #e14e50;
 }
 
-/* Botões de Navegação */
+.card-link-wrapper.current-post {
+    opacity: 0.6; /* Esmaece o card do post atual */
+    pointer-events: none; /* Desativa o clique no card do post atual */
+}
+
+.card-link-wrapper.current-post .card {
+    cursor: default; /* Altera o cursor para indicar que o card não é clicável */
+}
+
+.card-link-wrapper:hover {
+    opacity: 1; /* Deixa os outros cards totalmente opacos ao passar o mouse */
+}
+
+
 
 /* Botões de Navegação */
 .navigation-buttons {
@@ -254,7 +381,6 @@
     margin-right: -60px;
 }
 
-
 .circular-btn {
     background-color: white;
     border-radius: 50%;
@@ -272,16 +398,157 @@
 .circular-btn.active {
     background-color: #FFF4DA;
 }
-/* Responsividade */
+
+/* Responsividade para tablets e telas médias */
 @media (max-width: 991px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .post-title {
+        font-size: 28px;
+        margin-top: 60px;
+        margin-bottom: 20px;
+    }
+
+    .post-meta {
+        font-size: 12px;
+        text-align: center; /* Centraliza o conteúdo dos metadados */
+    }
+
+    .post-image-container,
+    .main-slider,
+    .swiper-slide,
+    .post-image {
+        width: 100%;
+        height: auto;
+        margin-left: 0;
+    }
+
+    .slide-category,
+    .slide-title {
+        left: 10px;
+        top: auto;
+        bottom: 20px;
+        font-size: 14px;
+    }
+
     .cards-container {
-        flex-direction: column; /* Em telas menores, os cards são empilhados */
+        flex-direction: column;
         align-items: center;
     }
 
     .card {
-        width: 100%; /* Os cards ocupam toda a largura do container em telas pequenas */
-        max-width: 370px; /* Mantém a largura máxima de 370px */
-        margin-bottom: 20px; /* Adiciona espaço entre os cards ao empilhá-los */
+        width: 100%;
+        max-width: 370px;
+        margin-bottom: 20px;
+    }
+
+    .navigation-buttons {
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    #prev-cards,
+    #next-cards {
+        margin-top: 0;
+    }
+
+    .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+    }
+    .post-leia-tambem {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+/* Responsividade para smartphones e telas pequenas */
+@media (max-width: 600px) {
+    .main-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .post-title {
+        font-size: 24px;
+        margin-top: 20px; /* Aproxima o título da imagem */
+        margin-bottom: 15px;
+    }
+
+    .post-leia-tambem {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .post-meta,
+    .card-title,
+    .card-excerpt {
+        font-size: 14px;
+        text-align: center; /* Centraliza o conteúdo dos metadados */
+    }
+
+    .post-meta .post-meta-second-line {
+        flex-direction: column;
+        align-items: center; /* Centraliza os elementos */
+    }
+
+    .social-share-inline {
+        justify-content: center; /* Centraliza os ícones de compartilhamento */
+        font-size: 12px;
+    }
+
+    .swiper-pagination-bullet {
+        width: 10px;
+        height: 10px;
+    }
+
+    .card-category {
+        font-size: 12px;
+        top: 140px;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+
+    .navigation-buttons {
+        margin-top: 15px;
+    }
+
+    /* Ajustes de Cards para dispositivos menores */
+    .cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    /* Ajustes no Header para dispositivos menores */
+    .post-image-container {
+        width: 100%;
+        height: 160px;
+    }
+
+    .post-title {
+        font-size: 20px;
+    }
+
+    .slide-category {
+        font-size: 12px;
+    }
+
+    .slide-title {
+        font-size: 18px;
+    }
+
+    /* Ajustes de espaçamento para o conteúdo */
+    .post-content {
+        padding-left: 10px;  /* Adiciona padding de 10px nas laterais */
+        padding-right: 10px; /* Adiciona padding de 10px nas laterais */
     }
 }

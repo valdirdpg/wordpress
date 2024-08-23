@@ -943,7 +943,7 @@ function load_cards_callback() {
             ?>
             <div class="card <?php echo esc_attr($category_class); ?>">
                 <a href="<?php the_permalink(); ?>" class="card-link-wrapper">
-                    <div class="card-image" style="background-image: url('<?php echo esc_url($imagem_url); ?>');">
+                    <div class="card-image" style="background-image: url('<?php echo esc_url(get_field('imagem_card')); ?>');">
                         <?php if ($categoria): ?>
                             <span class="card-category"><?php echo esc_html($categoria); ?></span>
                         <?php endif; ?>
