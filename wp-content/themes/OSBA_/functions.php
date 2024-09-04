@@ -655,7 +655,9 @@ function load_events() {
 
     if ($eventos_query->have_posts()) {
         while ($eventos_query->have_posts()) : $eventos_query->the_post();
-            $grupo_evento = get_field('grupo_de_eventos');
+            $grupo_evento = get_field('grupos');
+            $tipo = get_field('tipo');
+            $link = get_field('link');
 
             // Definindo cores com base no grupo de eventos
             switch ($grupo_evento) {
@@ -705,7 +707,9 @@ function load_events() {
                         <div class="ev-banner">
 
                             <span class="ev-banner-date" style="background-color: <?php echo esc_attr($banner_color_date); ?>; font-size: 24px; "><?php echo date('d/m', strtotime(get_field('data'))); ?></span>
-                            <span class="ev-banner-time" style="background-color: <?php echo esc_attr($banner_color_time); ?> ;font-size:20px;"><?php echo date('H', strtotime(get_field('inicio'))); ?>h</span>
+                            <span class="ev-banner-time" style="background-color: <?php echo esc_attr($banner_color_time); ?> ;font-size:20px;">
+                                <?php echo esc_html(get_field('inicio')); ?>
+                            </span>
                         </div>
                         <div class="ev-horizontal-line" style="background-color: <?php echo esc_attr($banner_color_date); ?>"></div>
                     </div>
@@ -740,10 +744,11 @@ function load_events() {
                             ?>
                         </div>
                         <a href="<?php the_permalink(); ?>" class="ev-btn ev-btn-outline-secondary">saiba mais</a>
-                        <?php if ($grupo_evento == 'Gratuito'){ ?>
-                            <a href="<?php the_permalink(); ?>" class="ev-btn ev-btn-primary-grt">GRATUITO</a>
+                        <?php if ($tipo == 'Gratuito'){ ?>
+                            <!--<a href="<?php the_permalink(); ?>" class="ev-btn ev-btn-primary-grt">GRATUITO</a>-->
+                            <span" class="ev-btn ev-btn-primary-grt">GRATUITO</span>
                         <?php } else{ ?>
-                            <a href="<?php the_permalink(); ?>" class="ev-btn ev-btn-primary">COMPRAR INGRESSO</a>
+                            <a href="<?php echo $link; ?>" class="ev-btn ev-btn-primary" target="_blank">COMPRAR INGRESSO</a>
                         <?php } ?>
                     </div>
 
@@ -776,7 +781,7 @@ function load_initial_data() {
                 'title' => get_the_title(),
                 'date' => get_field('data'),
                 'tipo' => get_field('tipo'),
-                'grupo' => get_field('grupo_de_eventos')
+                'grupo' => get_field('grupos')
             );
         endwhile;
     }
@@ -822,7 +827,7 @@ function load_events_for_month() {
                 'date' => get_field('data'),
                 'title' => get_the_title(),
                 'tipo' => get_field('tipo'),
-                'grupo' => get_field('grupo'),
+                'grupo' => get_field('grupos'),
             );
         }
         wp_reset_postdata();
@@ -863,6 +868,9 @@ function load_events_year($year = null) {
 
     ob_start();
 
+    $eventos = array();
+
+
     if ($eventos_query->have_posts()) {
         $current_month = '';
 
@@ -879,10 +887,10 @@ function load_events_year($year = null) {
                 $current_month = $event_month_name;
             }
 
-            $grupo_evento = get_field('grupo_de_eventos');
+            $grupo_evento = get_field('grupos');
 
             switch ($grupo_evento) {
-                case 'Serie Manuel Inacio':
+                case 'Serie M. I.':
                     $banner_color_time = '#eda821';
                     break;
                 case 'Viagens Sinfônicas':
@@ -928,7 +936,9 @@ function load_events_year($year = null) {
                         </picture>
                         <div class="ev-banner">
                             <span class="ev-banner-date" style="background-color: <?php echo esc_attr($banner_color_date); ?>; font-size: 24px; "><?php echo date('d/m', strtotime(get_field('data'))); ?></span>
-                            <span class="ev-banner-time" style="background-color: <?php echo esc_attr($banner_color_time); ?> ;font-size:20px;"><?php echo date('H', strtotime(get_field('inicio'))); ?>h</span>
+                            <span class="ev-banner-time" style="background-color: <?php echo esc_attr($banner_color_time); ?> ;font-size:20px;">
+                                <?php echo esc_html(get_field('inicio')); ?>
+                            </span>
                         </div>
                         <div class="ev-horizontal-line" style="background-color: <?php echo esc_attr($banner_color_date); ?>"></div>
                     </div>
@@ -944,6 +954,7 @@ function load_events_year($year = null) {
                         <div class="ev-content">
                             <?php
                             $resumo = get_field('resumo');
+                            $link = get_field('link');
                             $char_limit = 115; // Define o limite de caracteres
 
                             if (!empty($resumo)) {
@@ -960,9 +971,9 @@ function load_events_year($year = null) {
                         <?php
                         $tipo_evento = get_field('tipo');
                         if ($tipo_evento == 'Gratuito') {
-                            echo '<a href="' . get_permalink() . '" class="ev-btn ev-btn-primary-grt">GRATUITO</a>';
+                            echo '<span class="ev-btn ev-btn-primary-grt">GRATUITO</span>';
                         } else {
-                            echo '<a href="' . get_permalink() . '" class="ev-btn ev-btn-primary">COMPRAR INGRESSO</a>';
+                            echo '<a href="' . $link . '" class="ev-btn ev-btn-primary" target="_blank">COMPRAR INGRESSO</a>';
                         }
                         ?>
                     </div>
@@ -1053,7 +1064,6 @@ function load_cards_callback() {
 }
 add_action('wp_ajax_load_cards', 'load_cards_callback');
 add_action('wp_ajax_nopriv_load_cards', 'load_cards_callback');
-
 
 //============FIM============//
 function load_all_events() {
@@ -1252,3 +1262,67 @@ add_filter('wpcf7_form_elements', function($content) {
     $content = preg_replace('/<(span).*?class="\s*(?:.*\s)?wpcf7-form-control-wrap(?:\s[^"]+)?\s*"[^\>]*>(.*)<\/\1>/i', '\2', $content);
     return $content;
 });
+
+
+function adicionar_sri_aos_recursos() {
+    // Adicionar SRI a um script carregado pelo WordPress
+    wp_enqueue_script(
+        'jquery-sri-360',
+        'https://code.jquery.com/jquery-3.6.0.min.js',
+        array(), // Sem dependências
+        null,
+        true
+    );
+    wp_script_add_data('jquery-sri-360', 'integrity', 'sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK');
+    wp_script_add_data('jquery-sri-360', 'crossorigin', 'anonymous');
+
+    wp_enqueue_script(
+        'jquery-sri-351',
+        'https://code.jquery.com/jquery-3.5.1.min.js',
+        array(), // Sem dependências
+        null,
+        true
+    );
+    wp_script_add_data('jquery-sri-351', 'integrity', 'sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK');
+    wp_script_add_data('jquery-sri-351', 'crossorigin', 'anonymous');
+
+    // Adicionar SRI a uma folha de estilo carregada pelo WordPress
+    wp_enqueue_style(
+        'font-awesome-sri',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
+        array(), // Sem dependências
+        null
+    );
+    wp_style_add_data('font-awesome-sri', 'integrity', 'sha384-5e2ESR8Ycmos6g3gAKr1Jvwye8sW4U1u/cAKulfVJnkakCcMqhOudbtPnvJ+nbv7');
+    wp_style_add_data('font-awesome-sri', 'crossorigin', 'anonymous');
+
+    wp_enqueue_style(
+        'font-josefin-sri',
+        'https://fonts.googleapis.com/css?family=Josefin+Sans',
+        array(), // Sem dependências
+        null
+    );
+    wp_style_add_data('font-josefin-sri', 'integrity', 'sha384-Ku/DKKA3Nl8M3zfRLBDmMnUthrZU+DaOD0R1bY4mCh2Em3QYtc7RgbRuZeGdSjk4');
+    wp_style_add_data('font-josefin-sri', 'crossorigin', 'anonymous');
+
+    wp_enqueue_style(
+        'font-raleway-sri',
+        'https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap',
+        array(), // Sem dependências
+        null
+    );
+    wp_style_add_data('font-raleway-sri', 'integrity', 'sha384-Gc0yVKwO9pLWlc37Qi/tmle9m9XgvtLp+sGEXvY80JGiplA/NqY+1ckOI0zSP0sD');
+    wp_style_add_data('font-raleway-sri', 'crossorigin', 'anonymous');
+
+    wp_enqueue_style(
+        'font-montserrat-sri',
+        'https://fonts.googleapis.com/css?family=Montserrat',
+        array(), // Sem dependências
+        null
+    );
+    wp_style_add_data('font-montserrat-sri', 'integrity', 'sha384-eLGZwBzuC4tLk+JRljlvwHOci7bqB1tvMmQ0KxwwOARgmYnsLKz9htI5szXhYAcs');
+    wp_style_add_data('font-montserrat-sri', 'crossorigin', 'anonymous');
+
+}
+
+add_action('wp_enqueue_scripts', 'adicionar_sri_aos_recursos');

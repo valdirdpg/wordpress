@@ -14,8 +14,20 @@
             box-shadow: -4px 0 6px -2px rgba(0,0,0,.2),4px 0 6px -2px rgba(0,0,0,.2),0 4px 6px -2px rgba(0,0,0,.2);
             height: auto;
             width: 342px;
-            margin-top:85px;
+            margin-top: 85px;
             margin-bottom: 25px;
+        }
+
+        .event-mark {
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            color: #fff;  /* Cor das datas marcadas */
+            /*border-radius: 50%; !* marcações como círculos *!*/
         }
 
     </style>
@@ -162,9 +174,22 @@
                                 let eventDate = new Date(e.date);
                                 return eventDate.getDate() === date && eventDate.getMonth() === month && eventDate.getFullYear() === year;
                             });
+
                             if (event) {
-                                const eventClass = event.tipo === 'Gratuito' ? 'event-day-free' : 'event-day-paid';
-                                cellText.addClass(eventClass);
+                                console.log('Grupo de eventos:', event.grupo); // Verifique o valor do grupo aqui
+                                let color = getColorByGroup(event.grupo);
+                                cellText.css("background-color", color);
+                                cellText.css({
+                                    'padding': '5px',
+                                    'display': 'flex',
+                                    'justify-content': 'center',
+                                    'align-items': 'center',
+                                    'width': '30px',
+                                    'height': '30px',
+                                    'text-align': 'center',
+                                    'color': '#fff'
+                                });
+
                             }
 
                             cell.append(cellText);
@@ -189,17 +214,65 @@
                 });
 
                 if (monthEvents.length > 0) {
+                    let usedGroups = {};
+
                     monthEvents.forEach(event => {
-                        let color = event.tipo === 'Gratuito' ? '#44996c' : '#BE7229';
-                        legend.append(`
-                            <div class="ev-legend-item">
-                                <div class="color-box" style="background-color: ${color}; flex-shrink: 0;"></div>
-                                <span>${event.title}</span>
-                            </div>
-                        `);
+                        let grupo = event.grupo || "Série Padrão"; // Se grupo for null, define como "Série Padrão"
+
+                        // Se o grupo for "Série M. I.", altere para "Série Manuel Inácio"
+                        if (grupo === "Série M. I.") {
+                            grupo = "Série Manuel Inácio";
+                        }
+
+                        let color = getColorByGroup(grupo);
+
+                        if (!usedGroups[grupo]) {
+                            legend.append(`
+                    <div class="ev-legend-item">
+                        <div class="color-box" style="background-color: ${color}; flex-shrink: 0;"></div>
+                        <span>${grupo}</span>
+                    </div>
+                `);
+                            usedGroups[grupo] = true;
+                        }
                     });
                 } else {
                     legend.append('<p>Nenhum evento encontrado para este mês.</p>');
+                }
+            }
+
+
+            // Função para obter a cor com base no grupo de eventos
+            function getColorByGroup(grupo) {
+                if (!grupo) {
+                    return '#003366'; // Cor padrão para grupos nulos ou indefinidos
+                }
+
+                switch (grupo) {
+                    case 'Série Manuel Inácio':
+                        return '#eda821';
+                    case 'Série M. I.': // Certifique-se de que os valores estão correspondendo aos do JSON
+                        return '#eda821';
+                    case 'Viagens Sinfônicas':
+                        return '#761984';
+                    case 'Série Carybé':
+                        return '#d87331';
+                    case 'OSBA na Estrada':
+                        return '#8e5a45';
+                    case 'Cameratas':
+                        return '#195584';
+                    case 'OSBA POP':
+                        return '#106433';
+                    case 'Outros Concertos':
+                        return '#595959';
+                    case 'CineConcerto':
+                        return '#000000';
+                    case 'OSBAcuri':
+                        return '#f57ca4';
+                    case 'Verão da OSBA':
+                        return '#ce3d2a';
+                    default:
+                        return '#003366'; // Cor padrão para qualquer outro caso
                 }
             }
 
@@ -255,11 +328,12 @@
             },
             success: function(response) {
                 const data = JSON.parse(response);
-                loadEvents(currentPage);
+                console.log(data.events); // Verifique se os grupos estão sendo enviados corretamente
                 renderCalendar(data.events);
             }
         });
     });
+
 </script>
 
 </body>

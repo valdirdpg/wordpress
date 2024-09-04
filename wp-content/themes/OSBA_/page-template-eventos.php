@@ -67,19 +67,19 @@
             top: 0; /* Mantém o calendário fixo ao rolar */
         }
 
-        .camaratas-section {
+        .cameratas-section {
             background-color: #f9f5e6;
             padding: 15px;
             border-radius: 8px;
             font-family: 'Raleway', sans-serif; /* Caso você queira usar Raleway aqui */
         }
 
-        .camarata {
+        .camerata {
             font-family: 'Nocturno Display Bold', serif; /* Fonte personalizada */
             font-size: 24px;
         }
 
-        .camarata-item {
+        .camerata-item {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -88,7 +88,7 @@
             font-family: Raleway;
         }
 
-        .camarata-date, .day, .camarata-time {
+        .camerata-date, .day, .camerata-time {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -107,13 +107,13 @@
             font-size: 16px;
         }
 
-        .camarata-time {
+        .camerata-time {
             background-color: #b6b6b6;
             height: 22px;
             font-size: 16px;
         }
 
-        .camarata-title {
+        .camerata-title {
             font-weight: bold;
             font-size: 16px;
             margin-bottom: 5px;
@@ -121,11 +121,12 @@
              /* Fonte personalizada */
         }
 
-        .camarata-location {
+        .camerata-location {
             font-size: 16px;
             color: #666;
             font-family: 'Raleway'; /* Mantenha Raleway aqui se for o desejado */
         }
+
 
     </style>
 </head>
@@ -190,31 +191,31 @@ get_header();
                 <div id="event-legend"></div>
             </div>
 
-            <!-- Camaratas Section -->
-            <div class="camaratas-section">
-                <p class="camarata">Camaratas</p>
+            <!-- Cameratas Section -->
+            <div class="cameratas-section">
+                <p class="camerata">Cameratas</p>
                 <?php
-                $camarata = get_posts(array(
+                $camerata = get_posts(array(
                     'post_type' => 'camarata',
                     'posts_per_page' => -1,
                 ));
 
-                if ($camarata) {
-                    foreach ($camarata as $camaratas) {
-                        $titulo = get_field('titulo', $camaratas->ID);
-                        $local = get_field('local', $camaratas->ID);
-                        $date = get_field('data', $camaratas->ID);
-                        $horario = get_field('horario', $camaratas->ID);
+                if ($camerata) {
+                    foreach ($camerata as $cameratas) {
+                        $titulo = get_field('titulo', $cameratas->ID);
+                        $local = get_field('local', $cameratas->ID);
+                        $date = get_field('data', $cameratas->ID);
+                        $horario = get_field('horario', $cameratas->ID);
 //                        $date = new DateTime($data);
                         ?>
-                        <div class="camarata-item">
-                            <div class="camarata-date">
+                        <div class="camerata-item">
+                            <div class="camerata-date">
                                 <span class="day"><?php echo date('d/m', strtotime(get_field('data'))); ?></span>
-                                <span class="camarata-time"><?php echo esc_html($horario); ?></span>
+                                <span class="camerata-time"><?php echo esc_html($horario); ?></span>
                             </div>
-                            <div class="camarata-details">
-                                <div class="camarata-title"><?php echo esc_html($titulo); ?></div>
-                                <div class="camarata-location">Local: <?php echo esc_html($local); ?></div>
+                            <div class="camerata-details">
+                                <div class="camerata-title"><?php echo esc_html($titulo); ?></div>
+                                <div class="camerata-location">Local: <?php echo esc_html($local); ?></div>
 
                             </div>
                         </div>
@@ -318,15 +319,28 @@ get_header();
                             break;
                         } else {
                             let cell = $("<td></td>").attr("data-date", `${year}-${(month + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`);
-                            let cellText = $("<span></span>").text(date).addClass('event-day');
+                            let cellText = $("<span></span>").text(date).addClass('event-day-year'); // Usando a classe CSS padrão
 
                             let event = events.find(e => {
                                 let eventDate = new Date(e.date);
                                 return eventDate.getDate() === date && eventDate.getMonth() === month && eventDate.getFullYear() === year;
                             });
+
                             if (event) {
-                                const eventClass = event.tipo === 'Gratuito' ? 'event-day-free' : 'event-day-paid';
-                                cellText.addClass(eventClass);
+                                console.log('Grupo de eventos:', event.grupo); // Verifique o valor do grupo aqui
+                                let color = getColorByGroup(event.grupo);
+                                cellText.css("background-color", color);
+                                cellText.css({
+                                    'padding': '5px',
+                                    'display': 'flex',
+                                    'justify-content': 'center',
+                                    'align-items': 'center',
+                                    'width': '30px',
+                                    'height': '30px',
+                                    'text-align': 'center',
+                                    'color': '#fff'
+                                });
+
                             }
 
                             cell.append(cellText);
@@ -351,17 +365,67 @@ get_header();
                 });
 
                 if (monthEvents.length > 0) {
+                    let usedGroups = {};
+
                     monthEvents.forEach(event => {
-                        let color = event.tipo === 'Gratuito' ? '#44996c' : '#0A246A';
-                        legend.append(`
-                            <div class="ev-legend-item">
-                                <div class="color-box" style="background-color: ${color};flex-shrink: 0;"></div>
-                                <span>${event.title}</span>
-                            </div>
-                        `);
+                        let grupo = event.grupo || "Série Padrão"; // Se grupo for null, define como "Série Padrão"
+
+                        // Se o grupo for "Série M. I.", altere para "Série Manuel Inácio"
+                        if (grupo === "Série M. I.") {
+                            grupo = "Série Manuel Inácio";
+                        }
+
+                        let color = getColorByGroup(grupo);
+
+                        if (!usedGroups[grupo]) {
+                            legend.append(`
+                    <div class="ev-legend-item">
+                        <div class="color-box" style="background-color: ${color}; flex-shrink: 0;"></div>
+                        <span>${grupo}</span>
+                    </div>
+                `);
+                            usedGroups[grupo] = true;
+                        }
                     });
                 } else {
                     legend.append('<p>Nenhum evento encontrado para este mês.</p>');
+                }
+            }
+
+
+
+
+            // Função para obter a cor com base no grupo de eventos
+            function getColorByGroup(grupo) {
+                if (!grupo) {
+                    return '#003366'; // Cor padrão para grupos nulos ou indefinidos
+                }
+
+                switch (grupo) {
+                    case 'Série Manuel Inácio':
+                        return '#eda821';
+                    case 'Série M. I.': // Certifique-se de que os valores estão correspondendo aos do JSON
+                        return '#eda821';
+                    case 'Viagens Sinfônicas':
+                        return '#761984';
+                    case 'Série Carybé':
+                        return '#d87331';
+                    case 'OSBA na Estrada':
+                        return '#8e5a45';
+                    case 'Cameratas':
+                        return '#195584';
+                    case 'OSBA POP':
+                        return '#106433';
+                    case 'Outros Concertos':
+                        return '#595959';
+                    case 'CineConcerto':
+                        return '#000000';
+                    case 'OSBAcuri':
+                        return '#f57ca4';
+                    case 'Verão da OSBA':
+                        return '#ce3d2a';
+                    default:
+                        return '#003366'; // Cor padrão para qualquer outro caso
                 }
             }
 
@@ -420,11 +484,12 @@ get_header();
                 const data = JSON.parse(response);
                 loadEvents(currentPage, currentYear);
                 renderCalendar(data.events);
-
             }
         });
     });
 </script>
+
+
 
 <!-- / PAGE CONTENT -->
 

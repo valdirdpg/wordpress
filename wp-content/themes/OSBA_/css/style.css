@@ -1,6 +1,12 @@
 @charset "UTF-8";
 body {
-  overflow-y: scroll; 
+  overflow-y: scroll;
+}
+
+.privacy-policy {
+  max-width: 1124px;
+  margin: 0 auto; /* Centraliza o conteúdo na tela */
+  padding: 0 20px; /* Adiciona um espaço de 20px nas laterais */
 }
 
 .fr {
@@ -407,7 +413,7 @@ body {
     padding-bottom: 40px;
   }
   #mainFooter .logo-footer,
-#mainFooter .footer-btns {
+  #mainFooter .footer-btns {
     margin-bottom: 0;
   }
 
@@ -416,7 +422,7 @@ body {
   }
 
   .footer-btns,
-.footer-social {
+  .footer-social {
     margin-top: 20px;
   }
 
@@ -440,7 +446,7 @@ body {
   }
 
   .footer-btns,
-.footer-social {
+  .footer-social {
     margin-top: 40px;
   }
 }
@@ -448,10 +454,22 @@ body {
   padding: 10px 16px;
 }
 
-.banner-highlights .item {
+/*.banner-highlights .item {
   display: flex;
   flex-wrap: wrap;
+}*/
+
+.banner-highlights .item {
+  display: flex;
+  /*flex-direction: column; !* Para garantir que os elementos dentro do item sejam empilhados verticalmente *!*/
+  flex-wrap: nowrap; /* Remove o wrap para que o conteúdo ocupe a largura total */
+  width: 90vw; /* Faz o item ocupar 90% da largura da viewport */
+  height: auto; /* Ajusta a altura automaticamente conforme a largura */
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
+  margin: 0; /* Remove todas as margens */
+  padding: 0; /* Remove todo o padding */
 }
+
 .banner-highlights a {
   color: #000;
 }
@@ -546,8 +564,8 @@ body {
 
 @media (max-width: 767.98px) {
   .last-events-wrapper .owl-carousel .owl-nav [class*=owl-],
-.last-projects-wrapper .owl-carousel .owl-nav [class*=owl-],
-.last-series-wrapper .owl-carousel .owl-nav [class*=owl-] {
+  .last-projects-wrapper .owl-carousel .owl-nav [class*=owl-],
+  .last-series-wrapper .owl-carousel .owl-nav [class*=owl-] {
     position: absolute;
     top: 50%;
     margin-top: -25px;
@@ -555,27 +573,27 @@ body {
     z-index: 10;
   }
   .last-events-wrapper .owl-carousel .owl-nav .owl-prev,
-.last-projects-wrapper .owl-carousel .owl-nav .owl-prev,
-.last-series-wrapper .owl-carousel .owl-nav .owl-prev {
+  .last-projects-wrapper .owl-carousel .owl-nav .owl-prev,
+  .last-series-wrapper .owl-carousel .owl-nav .owl-prev {
     left: 10px;
   }
   .last-events-wrapper .owl-carousel .owl-nav .owl-next,
-.last-projects-wrapper .owl-carousel .owl-nav .owl-next,
-.last-series-wrapper .owl-carousel .owl-nav .owl-next {
+  .last-projects-wrapper .owl-carousel .owl-nav .owl-next,
+  .last-series-wrapper .owl-carousel .owl-nav .owl-next {
     right: 10px;
   }
   .last-events-wrapper .owl-carousel .owl-nav [class*=owl-],
-.last-events-wrapper .owl-carousel .owl-nav [class*=owl-]:hover,
-.last-projects-wrapper .owl-carousel .owl-nav [class*=owl-],
-.last-projects-wrapper .owl-carousel .owl-nav [class*=owl-]:hover,
-.last-series-wrapper .owl-carousel .owl-nav [class*=owl-],
-.last-series-wrapper .owl-carousel .owl-nav [class*=owl-]:hover {
+  .last-events-wrapper .owl-carousel .owl-nav [class*=owl-]:hover,
+  .last-projects-wrapper .owl-carousel .owl-nav [class*=owl-],
+  .last-projects-wrapper .owl-carousel .owl-nav [class*=owl-]:hover,
+  .last-series-wrapper .owl-carousel .owl-nav [class*=owl-],
+  .last-series-wrapper .owl-carousel .owl-nav [class*=owl-]:hover {
     color: #f8f9fa;
     border-color: #f8f9fa;
   }
 
   .last-projects-wrapper .owl-carousel .owl-nav [class*=owl-],
-.last-series-wrapper .owl-carousel .owl-nav [class*=owl-] {
+  .last-series-wrapper .owl-carousel .owl-nav [class*=owl-] {
     top: 160px;
     margin-top: 0;
   }
@@ -635,51 +653,51 @@ body {
 
 @media (min-width: 768px) {
   .last-projects-wrapper,
-.last-series-wrapper {
+  .last-series-wrapper {
     margin-bottom: 0;
   }
   .last-projects-wrapper:after,
-.last-series-wrapper:after {
+  .last-series-wrapper:after {
     content: "";
     display: block;
     width: 84%;
     height: 60px;
   }
   .last-projects-wrapper .item,
-.last-series-wrapper .item {
+  .last-series-wrapper .item {
     display: flex;
     flex-wrap: nowrap;
   }
   .last-projects-wrapper .item .item-body,
-.last-series-wrapper .item .item-body {
+  .last-series-wrapper .item .item-body {
     padding-top: 70px;
     flex: 0 0 300px;
     position: relative;
   }
   .last-projects-wrapper .item .btn,
-.last-series-wrapper .item .btn {
+  .last-series-wrapper .item .btn {
     position: absolute;
     bottom: 0;
   }
   .last-projects-wrapper .item .preject-img,
-.last-series-wrapper .item .preject-img {
+  .last-series-wrapper .item .preject-img {
     flex: 0 1 auto;
   }
   .last-projects-wrapper .owl-nav,
-.last-series-wrapper .owl-nav {
+  .last-series-wrapper .owl-nav {
     position: absolute;
     top: 20px;
   }
 }
 @media (min-width: 992px) {
   .last-projects-wrapper .item .item-body,
-.last-series-wrapper .item .item-body {
+  .last-series-wrapper .item .item-body {
     flex: 0 0 400px;
   }
 }
 @media (min-width: 1200px) {
   .last-projects-wrapper .item .item-body,
-.last-series-wrapper .item .item-body {
+  .last-series-wrapper .item .item-body {
     flex: 0 0 40%;
   }
 }
@@ -956,7 +974,7 @@ body {
   }
 
   .page-history .article .article-content,
-.page-event .article .article-content {
+  .page-event .article .article-content {
     margin-right: 14%;
   }
 
@@ -1190,7 +1208,7 @@ a.link.link-lg {
     position: relative;
   }
   .page-single .page-header .page-header-content .page-title,
-.page-single .page-header .page-header-content .description {
+  .page-single .page-header .page-header-content .description {
     align-self: flex-end;
     max-width: 300px;
   }
@@ -1217,7 +1235,7 @@ a.link.link-lg {
   }
 
   .article .videoWrapper,
-.article .youtube-embed-wrapper {
+  .article .youtube-embed-wrapper {
     padding-bottom: 68.25% !important;
     width: 120%;
     margin-left: -20%;
@@ -1275,20 +1293,20 @@ a.link.link-lg {
   }
 
   .event-time,
-.event-age,
-.event-ticket {
+  .event-age,
+  .event-ticket {
     flex: 0 0 33%;
     max-width: 33%;
     margin-bottom: 1rem;
   }
 
   .event-time,
-.event-age {
+  .event-age {
     border-right: 1px solid #000;
   }
 
   .event-age,
-.event-ticket {
+  .event-ticket {
     padding-left: 10px;
   }
 }

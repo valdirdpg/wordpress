@@ -11,7 +11,9 @@
 	<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
 		<html <?php language_attributes(); ?>>
 		<!--<![endif]-->
-			<head>
+        <!-- Banner de Consentimento de Cookies -->
+
+        <head>
 				<meta charset="<?php bloginfo( 'charset' ); ?>" />
 				<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
@@ -45,8 +47,22 @@
 	<script type="text/javascript">
 		document.documentElement.className = 'js';
 	</script>
+    <style>
+        .container-osba {
+            background-color: #6867fd !important;
+            display: flex !important;
+            gap: 20px !important; /* Adiciona espaçamento entre as colunas */
+        }
 
-	<?php wp_head(); ?>
+        .col-md-4 {
+            flex: 1 !important;
+            padding-right: 150px !important; /* Adiciona padding interno às colunas */
+        }
+
+    </style>
+
+
+                <?php wp_head(); ?>
 
 	<!-- BOOTSTRAP -->
 	<link rel="stylesheet" href="<?php echo esc_url( $template_directory_uri . '/bootstrap/css/bootstrap.css"' ); ?>">
@@ -55,7 +71,7 @@
 
 
 	<!-- OSBA  -->
-	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat"  rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
 	<link href="<?php echo esc_url( $template_directory_uri ); ?>/css/nocture.css" rel="stylesheet">
 	<link href="<?php echo esc_url( $template_directory_uri ); ?>/css/fontello.css" rel="stylesheet">
@@ -72,8 +88,41 @@
 		@-webkit-keyframes loadingoverlay_animation__rotate_right { to { -webkit-transform : rotate(360deg); transform : rotate(360deg); } } @keyframes loadingoverlay_animation__rotate_right { to { -webkit-transform : rotate(360deg); transform : rotate(360deg); } } @-webkit-keyframes loadingoverlay_animation__rotate_left { to { -webkit-transform : rotate(-360deg); transform : rotate(-360deg); } } @keyframes loadingoverlay_animation__rotate_left { to { -webkit-transform : rotate(-360deg); transform : rotate(-360deg); } } @-webkit-keyframes loadingoverlay_animation__fadein { 0% { opacity   : 0; -webkit-transform : scale(0.1, 0.1); transform : scale(0.1, 0.1); } 50% { opacity   : 1; } 100% { opacity   : 0; -webkit-transform : scale(1, 1); transform : scale(1, 1); } } @keyframes loadingoverlay_animation__fadein { 0% { opacity   : 0; -webkit-transform : scale(0.1, 0.1); transform : scale(0.1, 0.1); } 50% { opacity   : 1; } 100% { opacity   : 0; -webkit-transform : scale(1, 1); transform : scale(1, 1); } } @-webkit-keyframes loadingoverlay_animation__pulse { 0% { -webkit-transform : scale(0, 0); transform : scale(0, 0); } 50% { -webkit-transform : scale(1, 1); transform : scale(1, 1); } 100% { -webkit-transform : scale(0, 0); transform : scale(0, 0); } } @keyframes loadingoverlay_animation__pulse { 0% { -webkit-transform : scale(0, 0); transform : scale(0, 0); } 50% { -webkit-transform : scale(1, 1); transform : scale(1, 1); } 100% { -webkit-transform : scale(0, 0); transform : scale(0, 0); } } 
 	</style>
 
-	
-	<?php 
+            <script type="text/javascript">
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Verifica se o usuário já consentiu
+                    if (!localStorage.getItem('cookieConsent')) {
+                        var cookieBanner = document.createElement('div');
+                        var policyLink = window.location.origin + "/politica-de-privacidade"; // Captura dinâmica do DNS
+
+                        cookieBanner.innerHTML = `
+                <div id="cookie-banner" style="position: fixed; bottom: 0; left: 0; right: 0; background: #fff; color: #000; padding: 10px; text-align: center; z-index: 1000; border-top: 2px solid #000;">
+                    Este site utiliza cookies para melhorar a experiência do usuário. <a href="${policyLink}" style="color: #000; text-decoration: underline;">Saiba mais</a>
+                    <button id="accept-cookies" style="background: #007bff; color: #fff; padding: 5px 10px; border: none; margin-left: 10px; cursor: pointer;">Aceitar</button>
+                    <button id="reject-cookies" style="background: #f8f9fa; color: #000; padding: 5px 10px; border: 1px solid #000; margin-left: 5px; cursor: pointer;">Rejeitar</button>
+                </div>
+            `;
+                        document.body.appendChild(cookieBanner);
+
+                        // Ação para aceitar cookies
+                        document.getElementById('accept-cookies').addEventListener('click', function() {
+                            localStorage.setItem('cookieConsent', 'true');
+                            document.getElementById('cookie-banner').style.display = 'none';
+                        });
+
+                        // Ação para rejeitar cookies
+                        document.getElementById('reject-cookies').addEventListener('click', function() {
+                            // Não armazenar nenhum cookie e ocultar o banner
+                            localStorage.setItem('cookieConsent', 'false');
+                            document.getElementById('cookie-banner').style.display = 'none';
+                        });
+                    }
+                });
+            </script>
+
+
+
+            <?php
 	global $post;
 	$post_slug = $post->post_name;
 	?>
@@ -108,11 +157,11 @@
 							ATCA
 						</a>
 					</li>
-					<li class="nav-item nav-item-apoio <?php if ( is_page('apoie-a-osba') ) echo "active"; ?>">
+					<!--<li class="nav-item nav-item-apoio <?php if ( is_page('apoie-a-osba') ) echo "active"; ?>">
 						<a class="nav-link" href="<?php echo esc_url( home_url( '/' ) ); ?>apoie-a-osba">Apoie</a>
-					</li>
+					</li>-->
                     <li class="nav-item nav-item-blog <?php if ( is_page('blog') ) echo "active"; ?>">
-                        <a class="nav-link" href="<?php echo get_post_type_archive_link('blog'); ?>">Blogs</a>
+                        <a class="nav-link" href="<?php echo get_post_type_archive_link('blog'); ?>">Blog</a>
 
 <!--                        <a class="nav-link" href="--><?php //echo esc_url( home_url( '/' ) ); ?><!--blog">Blog</a>-->
                     </li>
@@ -161,7 +210,7 @@
 				<i class="icon-cancel-1"></i>
 			</button>
 			<div class="menu-wrapper">
-				<div class="container">
+				<div class="container container-osba" >
 					<div class="row">
 						<div class="col-md-4 col-sm-6">
 							<h3 class="title menu-title"> A orquestra </h3>
@@ -274,27 +323,27 @@
 						<div class="col-md-4 col-sm-6">
 							<h3 class="title menu-title"> GALERIA </h3>
 							<ul class="nav flex-column">
-								<li class="nav-item <?php if ( is_page('galerias-de-imagens') ) echo "active"; ?>">
+								<!--<li class="nav-item <?php if ( is_page('galerias-de-imagens') ) echo "active"; ?>">
 									<a href="<?php echo esc_url( home_url( '/' ) ); ?>galerias-de-imagens" class="nav-link">Fotos</a>
-								</li>
+								</li>-->
 								<li class="nav-item <?php if ( is_page('galerias-de-videos') ) echo "active"; ?>">
 									<a href="<?php echo esc_url( home_url( '/' ) ); ?>galerias-de-videos" class="nav-link">Videos</a>
 								</li>
-								<li class="nav-item <?php if ( is_page('galerias-de-artes-graficas') ) echo "active"; ?>">
+								<!--<li class="nav-item <?php if ( is_page('galerias-de-artes-graficas') ) echo "active"; ?>">
 									<a href="<?php echo esc_url( home_url( '/' ) ); ?>galerias-de-artes-graficas" class="nav-link">Arte Gráficas</a>
-								</li>
+								</li>-->
 							</ul>
-							<h3 class="title menu-title mb-5">
+							<!--<h3 class="title menu-title mb-5">
 								<a href="<?php echo esc_url( home_url( '/' ) ); ?>loja">Loja</a>
-							</h3>
+							</h3>-->
 							<h3 class="title menu-title"> Contato </h3>
 							<ul class="nav flex-column">
-								<li class="nav-item">
+								<!--<li class="nav-item">
 									<a href="tel:+557131174834" class="nav-link">71 3117 4834</a>
 								</li>
 								<li class="nav-item">
 									<a href="tel:+557131174842" class="nav-link">71 3117 4842</a>
-								</li>
+								</li>-->
 								<li class="nav-item">
 									<a href="mailto:contato@osba.art.br" class="nav-link"> contato@osba.art.br</a>
 								</li>
@@ -305,3 +354,4 @@
 			</div>
 		</div>
 		<main id="mainContent">
+

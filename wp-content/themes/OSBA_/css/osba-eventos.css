@@ -39,26 +39,6 @@
     padding-right: 15px; /* Adiciona um pequeno padding para evitar que o conteúdo encoste nas bordas */
 }
 
-.event-day-free, .event-day-paid {
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-}
-
-.event-day-free {
-    background-color: #5FB085;
-    color: #fff;
-}
-
-.event-day-paid {
-    background-color: #BE7229;
-    color: #fff;
-}
-
 /* Marcação da legenda do evento pago */
 .ev-legend-item .color-box-paid {
     background-color: #BE7229; /* Nova cor para a caixa de cor na legenda do evento pago */
